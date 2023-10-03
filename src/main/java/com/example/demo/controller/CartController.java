@@ -15,7 +15,7 @@ public class CartController {
 
     @GetMapping("/cart")
     public String cart() {
-        return "cart";
+        return "cart";aa
     }
 
     @GetMapping("/addToCart")
