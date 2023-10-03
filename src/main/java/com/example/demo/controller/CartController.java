@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class CartController {
 
-    @Autowired
+    @Autowiredaa
     private CartRepository cartRepository;
 
     @GetMapping("/cart")
