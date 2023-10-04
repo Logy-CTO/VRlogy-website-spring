@@ -6,13 +6,16 @@ import javax.persistence.*;
 public class Cart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 수정된 부분
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id; // 카트 아이템의 고유 ID
 
-    private int memberId;
-    private String productName;  // 상품 이름 필드 추가
+    private String memberId; // 사용자의 username 또는 memberId
+    private String productName; // 제품 이름
 
-    // getters and setters
+    // 기본 생성자
+    public Cart() {}
+
+    // getter와 setter 메서드
 
     public int getId() {
         return id;
@@ -22,14 +25,13 @@ public class Cart {
         this.id = id;
     }
 
-    public int getMemberId() {
+    public String getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(int memberId) {
+    public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
-
 
     public String getProductName() {
         return productName;

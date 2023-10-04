@@ -13,13 +13,16 @@ public class AuthenticationController {
 
     @GetMapping("/check-authentication")
     public ResponseEntity<?> checkAuthentication(HttpSession session){
-        boolean authenticated = false;
-        if(session.getAttribute("username")!=null){
-            authenticated=true;
+        Map<String, Object> response = new HashMap<>();
+        String username = (String) session.getAttribute("username");
+
+        if (username != null) {
+            response.put("authenticated", true);
+            response.put("username", username); // username을 응답에 포함
+        } else {
+            response.put("authenticated", false);
         }
 
-        Map<String,Object> response=new HashMap<>();
-        response.put("authenticated",authenticated);
         return ResponseEntity.ok().body(response);
     }
 }

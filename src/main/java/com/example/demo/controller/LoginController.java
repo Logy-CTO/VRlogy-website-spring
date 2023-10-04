@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.LoginService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -39,6 +42,21 @@ public class LoginController {
             // 로그인 실패 시 다른 페이지로 리다이렉션하거나, 아래와 같이 동일한 로그인 페이지를 반환하지 않도록 변경
             return "redirect:/login"; // 예: 에러 페이지로 이동
         }
+    }
+
+    @GetMapping("/check-authentication")
+    public ResponseEntity<?> checkAuthentication(HttpSession session){
+        Map<String, Object> response = new HashMap<>();
+        String username = (String) session.getAttribute("username");
+
+        if (username != null) {
+            response.put("authenticated", true);
+            response.put("username", username); // username을 응답에 포함
+        } else {
+            response.put("authenticated", false);
+        }
+
+        return ResponseEntity.ok().body(response);
     }
 }
 
