@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class Cart {
@@ -11,9 +12,11 @@ public class Cart {
 
     private String memberId; // 사용자의 username 또는 memberId
     private String productName; // 제품 이름
+    private BigDecimal amount; // 금액
 
     // 기본 생성자
-    public Cart() {}
+    public Cart() {
+    }
 
     // getter와 setter 메서드
 
@@ -40,4 +43,13 @@ public class Cart {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
 }

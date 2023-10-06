@@ -49,7 +49,7 @@
 
             <!-- 생략 -->
             <div class="modal-footer">
-                <a href="cart.html" class="main-btn model-btn">Checkout $320</a>
+                <a href="cart.html" class="main-btn model-btn">Checkout $0</a>
             </div>
         </div>
     </div>
@@ -149,7 +149,7 @@
 <!-- HEADER AREA START -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="navber">
     <div class="container">
-        <a class="navbar-brand" href=/>Logy<span>.</span></a>
+        <a class="navbar-brand" href="/">Logy<span>.</span></a>
         <div class="menu-main" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto menu-item">
                 <li class="nav-item">
@@ -166,7 +166,10 @@
                     <a class="nav-link cart nl-m-top mobile-content-hide" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-shopping-bag" aria-hidden="true"></i><span>2</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nl-m-top account-icon" href="login.html"><i class="fa fa-user" aria-hidden="true"></i></a>
+                    <!-- 로그인 버튼 -->
+                    <a class="nav-link nl-m-top account-icon" id="loginBtn" href="login"><i class="fa fa-user" aria-hidden="true"></i></a>
+                    <!-- 로그아웃 버튼 -->
+                    <a class="nav-link nl-m-top account-icon" id="logoutBtn" href="#"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-icon"><i class="fa fa-bars" aria-hidden="true"></i></a>
@@ -223,7 +226,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h3>Cart Page</h3>
-                <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i> Home</a><span> - Cart page</span>
+                <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a><span> - Cart page</span>
             </div>
         </div>
     </div>
@@ -236,6 +239,18 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="row">
+
+                    <!--
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="cart-items text-center">
+                            <h3>$9.8</h3>
+                            <img src="images/KakaoTalk_Photo_2023-09-07-23-39-23.png" alt="product-img" class="img-fluid">
+                            <h4>VRlogy Program</h4>
+                            <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    -->
+
                 </div>
             </div>
             <div class="col-lg-1"></div>
@@ -301,7 +316,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 heading">
-                <h3>Related</h3>
+                <h3>Product</h3>
             </div>
         </div>
         <div class="row product-pa">
@@ -311,8 +326,8 @@
                         <div class="product-item">
                             <h3>$9.8</h3>
                             <img src="/images/KakaoTalk_Photo_2023-09-07-23-39-23.png" alt="product-img" class="img-fluid">
-                            <h4 id="1">VRlogy Program</h4>
-                            <a href="#" data-product-name="VRlogy Program" class="product-btn addToCartLink">Add to Cart</a>
+                            <h4>VRlogy Program</h4>
+                            <a href="#" class="product-btn addToCartButton" data-product-name="VRlogy Program" data-amount="9.8">Add to Cart</a>
                         </div>
                     </div>
                     <div class="col-lg-3 text-center">
@@ -322,16 +337,16 @@
                                 <span>Sale</span>
                             </div>
                             <img src="/images/KATWALKC2.jpg" alt="product-img" class="img-fluid">
-                            <h4 id="2">VRlogy Treadmill</h4>
-                            <a href="#" data-product-name="VRlogy Treadmill" class="product-btn addToCartLink">Add to Cart</a>
+                            <h4>VRlogy treadmill</h4>
+                            <a href="#" class="product-btn addToCartButton" data-product-name="VRlogy treadmill" data-amount="439">Add to Cart</a>
                         </div>
                     </div>
                     <div class="col-lg-3 text-center">
                         <div class="product-item">
                             <h3>$299</h3>
                             <img src="/images/30612946625.20230130153345.jpg" alt="product-img" class="img-fluid">
-                            <h4 id="3">Oculus Quest 2</h4>
-                            <a href="#" id="addToCartBtn" data-product-name="Oculus Quest 2" class="product-btn addToCartLink" >Add to Cart</a>
+                            <h4>Oculus Quest 2</h4>
+                            <a href="#" class="product-btn addToCartButton" data-product-name="Oculus Quest 2" data-amount="299">Add to Cart</a>
                         </div>
                     </div>
                     <div class="col-lg-3 text-center">
@@ -341,16 +356,16 @@
                                 <span>Sale</span>
                             </div>
                             <img src="/images/35059704619.20221216134925.jpg" alt="product-img" class="img-fluid">
-                            <h4 id="4">Pico4</h4>
-                            <a href="#" data-product-name="Pico4" class="product-btn addToCartLink">Add to Cart</a>
+                            <h4>PICO 4</h4>
+                            <a href="#" class="product-btn addToCartButton" data-product-name="PICO 4" data-amount="458">Add to Cart</a>
                         </div>
                     </div>
                     <div class="col-lg-3 text-center">
                         <div class="product-item">
                             <h3>$47</h3>
                             <img src="/images/16646684053.20181217180044.jpg" alt="product-img" class="img-fluid">
-                            <h4 id="5">C920</h4>
-                            <a href="#" data-product-name="C920" class="product-btn addToCartLink">Add to Cart</a>
+                            <h4>C920 PRO</h4>
+                            <a href="#" class="product-btn addToCartButton" data-product-name="C920 PRO" data-amount="47">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -369,7 +384,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 footer-logo">
-                <a href="index.html">Logy<b>.</b></a>
+                <a href="/">Logy<b>.</b></a>
                 <p>Step into the Future with logy: Elevating Reality through VR Treadmills and Software Solutions</p>
                 <div class="footer-social">
                     <a href="#"><i class="fa fa-twitch" aria-hidden="true"></i></a>
@@ -435,36 +450,122 @@
 <script src="/js/ytplayer-plugin.js"></script>
 <!-- Custom Script for addToCart -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $(".addToCartLink").click(function(e){
-            e.preventDefault();
-            var productName = $(this).data('product-name');
-            var memberId = 1; // 로그인한 회원의 ID로 변경해주세요.
 
+<script>
+    $(document).ready(function() {
+        // 로그인 상태 확인
+        checkAuthentication();
+
+        // Add to Cart 버튼 클릭 이벤트
+        $('.addToCartButton').click(function(e) {
+            e.preventDefault();
             $.ajax({
-                url: '/cart',
-                type: 'POST',
-                data: {
-                    memberId: memberId,
-                    productName: productName
-                },
-                success: function(response){
-                    if(response.status === "success") {
-                        alert(response.message);
+                url: '/check-authentication',
+                method: 'GET',
+                success: function(response) {
+                    if (response.authenticated) {
+                        // 로그인한 사용자의 경우
+                        let username = response.username; // 응답에서 username 가져오기
+                        let productName = $(e.target).data('product-name'); // 버튼의 data-product-name 속성에서 제품 이름 가져오기
+                        let amount = $(e.target).data('amount'); // 버튼의 data-amount 속성에서 제품 가격 가져오기
+
+                        $.ajax({
+                            url: '/cart',
+                            method: 'POST',
+                            data: {
+                                memberId: username, // username을 memberId로 전송
+                                productName: productName,
+                                amount: amount // 금액도 함께 전송
+                            },
+                            success: function(cartResponse) {
+                                if (cartResponse.status === "success") {
+                                    alert(cartResponse.message);
+                                } else {
+                                    alert(cartResponse.message);
+                                }
+                            }
+                        });
                     } else {
-                        alert(response.message);
+                        // 로그인하지 않은 사용자의 경우
+                        alert("로그인을 해주세요");
                     }
-                },
-                error: function(error){
-                    console.log(error);
-                    alert("Error while adding product to cart");
                 }
             });
         });
+
+        // 로그인 상태 확인 함수
+        function checkAuthentication() {
+            $.ajax({
+                url: '/check-authentication',
+                method: 'GET',
+                success: function(response) {
+                    if (response.authenticated) {  // 인증된 경우 (세션이 유효한 경우)
+                        $('#loginBtn').hide();  // 로그인 버튼 숨김 처리
+                        $('#logoutBtn').show();  // 로그아웃 버튼 표시
+
+                        $('#logoutBtn').click(function(e) {  // 로그아웃 버튼 클릭 시 이벤트 핸들러 등록
+                            e.preventDefault();
+                            logout();
+                        });
+                    } else {  // 인증되지 않은 경우 (세션이 없거나 유효하지 않은 경우)
+                        $('#logoutBtn').hide();  // 로그아웃 버튼 숨김 처리
+                        $('#loginBtn').show();   // 로그인 버튼 표시
+                    }
+                }
+            });
+        }
+
+        // 로그아웃 함수
+        function logout() {
+            $.ajax({
+                url: '/logout',
+                method: 'POST',
+                success: function(response) {
+                    window.location.href = '/';
+                }
+            });
+        }
     });
+
+
+    $(document).ready(function() {
+        loadCartItems();
+
+        function loadCartItems() {
+            $.ajax({
+                url: '/get-cart-items', // 장바구니 항목을 가져오는 서버의 endpoint
+                method: 'GET',
+                success: function(response) {
+                    let cartItemsContainer = $('.row'); // 장바구니 항목을 추가할 컨테이너 선택
+
+                    // 기존 항목 제거
+                    cartItemsContainer.empty();
+
+                    // 각 장바구니 항목에 대해 HTML 생성
+                    response.cartItems.forEach(cartItem => { <!--cartItems못 읽어 오는거 같음-->
+                        let itemHtml = `
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="cart-items text-center">
+                                <h3>$${cartItem.amount}</h3>
+                                <!--  <img src="${cartItem.imageSrc}" alt="product-img" class="img-fluid">
+                                이거 데이터베이스에 사진 링크들어가면 너무 지져분하니깐 ex) c920이면 image1이렇게 변수 지정해서 만들자-->
+                                <h4>${cartItem.productName}</h4>
+                                <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    `;
+
+                        cartItemsContainer.append(itemHtml);
+                    });
+                },
+                error: function() {
+                    alert("장바구니 항목을 가져오는 데 실패했습니다.");
+                }
+            });
+        }
+    });
+
 </script>
-<!-- 이렇게 ytplayer-plugin.js를 다른 스크립트 파일들 뒤에 위치시키세요. -->
 
 
 
