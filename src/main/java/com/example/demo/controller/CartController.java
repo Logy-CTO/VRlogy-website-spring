@@ -27,7 +27,7 @@ public class CartController {
         Map<String, String> response = new HashMap<>();
         try {
             Cart cart = new Cart();
-            cart.setMemberId(memberId);
+            cart.setMemberId(String.valueOf(memberId));
             cart.setProductName(productName);
             cartRepository.save(cart);
             response.put("status", "success");
