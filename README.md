@@ -27,7 +27,7 @@ mvn clean install
 bash
 Copy code
 java -jar target/name_of_your_jar.jar
-
+```
 ### 🛠️ 기술 스택
 
 Backend: Spring Boot
