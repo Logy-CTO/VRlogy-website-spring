@@ -238,7 +238,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <div class="row">
+                <div class="row" id="cartItemsContainer">
 
                     <!--
                     <div class="col-lg-6 col-sm-6">
@@ -529,42 +529,76 @@
 
 
     $(document).ready(function() {
-        loadCartItems();
-
         function loadCartItems() {
             $.ajax({
-                url: '/get-cart-items', // 장바구니 항목을 가져오는 서버의 endpoint
+                url: '/check-authentication',
                 method: 'GET',
                 success: function(response) {
-                    let cartItemsContainer = $('.row'); // 장바구니 항목을 추가할 컨테이너 선택
+                    if (response.authenticated) {
+                        let currentMemberId = response.username;
 
-                    // 기존 항목 제거
-                    cartItemsContainer.empty();
+                        $.ajax({
+                            url: '/get-cart-items',
+                            method: 'GET',
+                            data: { memberId: currentMemberId },
+                            success: function(response) {
+                                // cartItemsContainer ID를 사용하여 해당 위치 선택
+                                let cartItemsContainer = $('#cartItemsContainer');
+                                cartItemsContainer.empty(); // 기존 항목 제거
 
-                    // 각 장바구니 항목에 대해 HTML 생성
-                    response.cartItems.forEach(cartItem => { <!--cartItems못 읽어 오는거 같음-->
-                        let itemHtml = `
-                        <div class="col-lg-6 col-sm-6">
-                            <div class="cart-items text-center">
-                                <h3>$${cartItem.amount}</h3>
-                                <!--  <img src="${cartItem.imageSrc}" alt="product-img" class="img-fluid">
-                                이거 데이터베이스에 사진 링크들어가면 너무 지져분하니깐 ex) c920이면 image1이렇게 변수 지정해서 만들자-->
-                                <h4>${cartItem.productName}</h4>
-                                <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    `;
+                                // 각 장바구니 항목에 대해 HTML 생성
+                                response.forEach(cartItem => {
+                                    let itemHtml = `
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="cart-items text-center">
+                                            <h3>$${cartItem.amount}</h3>
+                                            <h4>${cartItem.productName}</h4>
+                                            <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                `;
 
-                        cartItemsContainer.append(itemHtml);
-                    });
-                },
-                error: function() {
-                    alert("장바구니 항목을 가져오는 데 실패했습니다.");
+                                    cartItemsContainer.append(itemHtml);
+                                });
+
+                                // "x" 버튼 클릭 이벤트 핸들러 추가
+                                $('.deleteCartItem').click(function(e) {
+                                    e.preventDefault();
+                                    let productName = $(this).data('product-name');
+
+                                    $.ajax({
+                                        url: '/delete-cart-item',
+                                        method: 'POST',
+                                        data: {
+                                            productName: productName,
+                                            memberId: currentMemberId
+                                        },
+                                        success: function(deleteResponse) {
+                                            if (deleteResponse.status === "success") {
+                                                loadCartItems(); // 삭제 후, 장바구니 항목을 다시 로드
+                                            } else {
+                                                alert(deleteResponse.message);
+                                            }
+                                        },
+                                        error: function() {
+                                            alert("장바구니 항목을 삭제하는 데 실패했습니다.");
+                                        }
+                                    });
+                                });
+                            },
+                            error: function() {
+                                alert("장바구니 항목을 가져오는 데 실패했습니다.");
+                            }
+                        });
+                    } else {
+                        alert("로그인을 해주세요");
+                    }
                 }
             });
         }
-    });
 
+        loadCartItems(); // 페이지 로드 시 장바구니 항목 로드
+    });
 </script>
 
 
