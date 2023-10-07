@@ -16,7 +16,7 @@ VRlogy는 VRlogy프로그램을 위한웹사이트입니다. 이 저장소는 VR
 
 ### 🔧 설치 및 실행
 
-1. 저장소를 클론합니다.
+저장소를 클론합니다.
 ```bash
 git clone https://github.com/your_username/VRlogy-website-Springboot.git
 Maven을 사용하여 프로젝트를 빌드합니다.
