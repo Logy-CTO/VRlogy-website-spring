@@ -43,13 +43,13 @@
                 </button>
             </div>
             <!-- 여기가 상품 정보가 들어갈 곳입니다 -->
-            <div class="modal-body">
-
+            <div class="modal-body" id="cartItemsContainer2">
+                <!-- 장바구니 항목이 여기에 동적으로 추가됩니다 -->
             </div>
 
             <!-- 생략 -->
             <div class="modal-footer">
-                <a href="cart.html" class="main-btn model-btn">Checkout $0</a>
+                <a href="cart" class="main-btn model-btn" id="checkoutButton">Checkout $0</a>
             </div>
         </div>
     </div>
@@ -163,7 +163,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link cart nl-m-top mobile-content-hide" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-shopping-bag" aria-hidden="true"></i><span>2</span></a>
+                    <a class="nav-link cart nl-m-top mobile-content-hide" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-shopping-bag" aria-hidden="true"></i><span id="cartItemCount">0</span></a>
                 </li>
                 <li class="nav-item">
                     <!-- 로그인 버튼 -->
@@ -206,8 +206,8 @@
                     </form>
                 </div>
             </li>
-            <li>
-                <a class="nav-link cart nl-m-top" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-shopping-bag" aria-hidden="true"></i><span>2</span></a>
+            <li class="nav-item">
+                <a class="nav-link cart nl-m-top mobile-content-hide" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-shopping-bag" aria-hidden="true"></i><span id="cartItemCount">0</span></a>
             </li>
             <li>
                 <a class="nav-link nl-m-top" href="login.html"><i class="fa fa-user" aria-hidden="true"></i></a>
@@ -544,34 +544,78 @@
                             success: function(response) {
                                 // cartItemsContainer ID를 사용하여 해당 위치 선택
                                 let cartItemsContainer = $('#cartItemsContainer');
+                                let cartItemsContainer2 = $('#cartItemsContainer2');
                                 cartItemsContainer.empty(); // 기존 항목 제거
-
+                                cartItemsContainer2.empty();
+                                let totalAmount = response.reduce((sum, cartItem) => sum + parseFloat(cartItem.amount), 0);
                                 // 각 장바구니 항목에 대해 HTML 생성
+                                $('#subtotal-value').text(`$${totalAmount.toFixed(2)}`);
+                                $('#total-value').text(`$${totalAmount.toFixed(2)}`); // 할인이 없으므로 subtotal과 동일
+                                $('#checkoutButton').text(`Checkout $${totalAmount.toFixed(2)}`);
+                                $('#cartItemCount').text(response.length);
                                 response.forEach(cartItem => {
+                                    let imagePath = ""; // 이미지 경로를 저장할 변수
+
+                                    // productName에 따라 imagePath 설정
+                                    switch(cartItem.productName) {
+                                        case "PICO 4":
+                                            imagePath = "/images/35059704619.20221216134925.jpg";
+                                            break;
+                                        case "C920 PRO":
+                                            imagePath = "/images/16646684053.20181217180044.jpg";
+                                            break;
+                                        case "Oculus Quest 2":
+                                            imagePath = "/images/30612946625.20230130153345.jpg";
+                                            break;
+                                        case "VRlogy treadmill":
+                                            imagePath = "/images/KATWALKC2.jpg";
+                                            break;
+                                        case "VRlogy Program":
+                                            imagePath = "/images/KakaoTalk_Photo_2023-09-07-23-39-23.png";
+                                            break;
+                                        default:
+                                            imagePath = ""; // 기본 이미지 경로 (해당하는 productName이 없을 경우)
+                                            break;
+                                    }
+
                                     let itemHtml = `
-                                    <div class="col-lg-6 col-sm-6">
-                                        <div class="cart-items text-center">
-                                            <h3>$${cartItem.amount}</h3>
-                                            <h4>${cartItem.productName}</h4>
-                                            <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="cart-items text-center">
+                                                <img src="${imagePath}" alt="${cartItem.productName}" width="100"> <!-- 이미지 추가 -->
+                                                <h3>$${cartItem.amount}</h3>
+                                                <h4>${cartItem.productName}</h4>
+                                                <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    `;
+
+                                    let itemHtml2 = `
+                                    <div class="row cart-item">
+                                        <div class="col-sm-4 col-lg-4 cart-img">
+                                            <img src="${imagePath}" alt="${cartItem.productName}" class="img-fluid">
+                                            <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="col-sm-8 col-lg-8">
+                                            <h3>${cartItem.productName}</h3>
+                                            <span>$${cartItem.amount}</span>
                                         </div>
                                     </div>
                                 `;
 
                                     cartItemsContainer.append(itemHtml);
+                                    cartItemsContainer2.append(itemHtml2);
                                 });
 
                                 // "x" 버튼 클릭 이벤트 핸들러 추가
-                                $('.deleteCartItem').click(function(e) {
+                                $('#cartItemsContainer, #cartItemsContainer2').on('click', '.deleteCartItem', function(e)  {
                                     e.preventDefault();
                                     let productName = $(this).data('product-name');
-
                                     $.ajax({
                                         url: '/delete-cart-item',
                                         method: 'POST',
                                         data: {
                                             productName: productName,
-                                            memberId: currentMemberId
+                                            memberId: currentMemberId,
                                         },
                                         success: function(deleteResponse) {
                                             if (deleteResponse.status === "success") {
@@ -598,6 +642,40 @@
         }
 
         loadCartItems(); // 페이지 로드 시 장바구니 항목 로드
+    });
+
+    // 라이센스 적용 버튼 클릭 이벤트
+    $('#download').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/check-authentication',
+            method: 'GET',
+            success:function(response){
+                if(response.authenticated){
+                    let username = response.username;
+                    $.ajax({
+                        url: '/apply-license',
+                        method: 'POST',
+                        data: { memberId: username },
+                        success:function(applyResponse){
+                            if(applyResponse.status === "success") {
+                                alert("적용되었습니다.");
+                            } else {
+                                alert(applyResponse.message);
+                            }
+                        },
+                        error:function(){
+                            alert("적용 실패");
+                        }
+                    });
+                }else{
+                    alert("로그인을 해주세요");
+                }
+            },
+            error:function(){
+                alert("로그인 상태를 확인하는데 실패했습니다.");
+            }
+        });
     });
 </script>
 

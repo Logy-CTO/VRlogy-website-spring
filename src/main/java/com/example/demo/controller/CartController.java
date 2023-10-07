@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Cart;
+import com.example.demo.domain.License;
 import com.example.demo.repository.CartRepository;
+import com.example.demo.repository.LicenseRepository;
 import com.example.demo.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,15 +65,47 @@ public class CartController {
     public Map<String, String> deleteCartItem(@RequestParam String memberId, @RequestParam String productName) {
         Map<String, String> response = new HashMap<>();
         try {
-            // 해당 사용자의 특정 상품을 장바구니에서 삭제
-            cartRepository.deleteByMemberIdAndProductName(memberId, productName);
-
+            cartService.deleteCartItem(memberId, productName);
             response.put("status", "success");
             response.put("message", "Item successfully deleted from cart");
         } catch (Exception e) {
             response.put("status", "error");
             response.put("message", "Error deleting item from cart");
         }
+        return response;
+    }
+
+    @Autowired
+    private LicenseRepository licenseRepository;
+
+    @PostMapping("/apply-license")
+    @ResponseBody
+    public Map<String, String> applyLicense(@RequestParam String memberId) {
+        Map<String, String> response = new HashMap<>();
+
+        try {
+            List<Cart> cartItems = cartService.getCartItemsByMemberId(memberId);
+            boolean hasVRlogyProgram = cartItems.stream().anyMatch(item -> "VRlogy Program".equals(item.getProductName()));
+
+            if (hasVRlogyProgram) {
+                License license = licenseRepository.findByMemberId(memberId).orElse(new License());
+                license.setMemberId(memberId);
+                license.setIsPurchased(1);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.YEAR, 1); // 1년 추가
+                license.setExpirationDate(calendar.getTime());
+
+                licenseRepository.save(license);
+
+                response.put("status", "success");
+                response.put("message", "License applied successfully!");
+            }
+        } catch (Exception e) {
+            response.put("status", "error");
+            response.put("message", "Error applying license");
+        }
+
         return response;
     }
 }
