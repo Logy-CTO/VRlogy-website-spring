@@ -172,7 +172,7 @@
         font-size: 0.8rem;
         color: white;
     }
-    
+
     .contact-box .form-control {
         margin-top: 0px;
     }
@@ -227,6 +227,17 @@
                     <input type="password" id="currentPassword" placeholder="Current Password" required autocomplete="off" pattern=". {8,}" title="Enter a password of 8 characters or more." class="form-control smaller-placeholder"><br/>
                     <input type="password" id="newPassword" placeholder="New Password" required autocomplete="off" pattern=". {8,}" title="Enter a password of 8 characters or more." class="form-control smaller-placeholder">
                     <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updatePasswordBtn">Update Password</button>
+                </div>
+            </div>
+        </div>
+
+        <h4>Phone Number Update</h4>
+        <div class="row contact-box">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="tel" id="currentPhoneNumber" placeholder="Current Phone Number" required autocomplete="off" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Enter a valid phone number." class="form-control smaller-placeholder"><br/>
+                    <input type="tel" id="newPhoneNumber" placeholder="New Phone Number" required autocomplete="off" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Enter a valid phone number." class="form-control smaller-placeholder">
+                    <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id ="updatePhoneNumberBtn">Update Phone Number</button>
                 </div>
             </div>
         </div>
