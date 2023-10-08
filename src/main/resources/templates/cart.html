@@ -483,6 +483,7 @@
         }
     });
 
+    let allProductNames = "";
     $(document).ready(function() {
         function loadCartItems() {
             $.ajax({
@@ -497,6 +498,8 @@
                             method: 'GET',
                             data: { memberId: currentMemberId },
                             success: function(response) {
+                                let productNames = response.map(cartItem => cartItem.productName);
+                                allProductNames = productNames.join(', ');
                                 // cartItemsContainer ID를 사용하여 해당 위치 선택
                                 let cartItemsContainer = $('#cartItemsContainer');
                                 let cartItemsContainer2 = $('#cartItemsContainer2');
@@ -648,8 +651,8 @@
             pg: "html5_inicis",
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : '상품1' , //결제창에서 보여질 이름
-            amount : 100, //실제 결제되는 가격
+            name: allProductNames, //결제창에서 보여질 이름
+            amount :  parseInt($('#total-value').text().substring(1)), //실제 결제되는 가격
             buyer_email : 'iamport@siot.do',
             buyer_name : '구매자이름',
             buyer_tel : '010-1234-5678',
