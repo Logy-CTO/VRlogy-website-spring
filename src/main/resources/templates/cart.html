@@ -93,57 +93,7 @@
 </div>
 
 <!-- Billing Modal -->
-<div class="modal fade" id="billing-model-large" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <form>
-                <div class="modal-header">
-                    <h5 class="modal-title">Billing Details <b>.</b></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row contact-box">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Full Name">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Your Email Address">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Phone Number">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Card Number">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Expiry Date">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="main-btn model-btn">Payment $298</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 <!-- Modal -->
 
 <!-- HEADER AREA START -->
@@ -170,6 +120,10 @@
                     <a class="nav-link nl-m-top account-icon" id="loginBtn" href="login"><i class="fa fa-user" aria-hidden="true"></i></a>
                     <!-- 로그아웃 버튼 -->
                     <a class="nav-link nl-m-top account-icon" id="logoutBtn" href="#"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
+                </li>
+                <li class="nav-item">
+                    <!-- 마이페이지 버튼 -->
+                    <a class="nav-link nl-m-top account-icon" id="myPageBtn" href="mypage"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-icon"><i class="fa fa-bars" aria-hidden="true"></i></a>
@@ -289,7 +243,7 @@
                             </div>
                         </div>
                         <div class="col-lg-12 checkout-button">
-                            <a class="main-btn btn-c-white" data-toggle="modal" data-target="#billing-model-large">Make Payment</a>
+                            <a class="main-btn btn-c-white" data-toggle="modal">Make Payment</a>
                         </div>
                     </div>
                 </div>
@@ -450,6 +404,8 @@
 <script src="/js/ytplayer-plugin.js"></script>
 <!-- Custom Script for addToCart -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript"	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -527,7 +483,7 @@
         }
     });
 
-
+    let allProductNames = "";
     $(document).ready(function() {
         function loadCartItems() {
             $.ajax({
@@ -542,6 +498,8 @@
                             method: 'GET',
                             data: { memberId: currentMemberId },
                             success: function(response) {
+                                let productNames = response.map(cartItem => cartItem.productName);
+                                allProductNames = productNames.join(', ');
                                 // cartItemsContainer ID를 사용하여 해당 위치 선택
                                 let cartItemsContainer = $('#cartItemsContainer');
                                 let cartItemsContainer2 = $('#cartItemsContainer2');
@@ -677,6 +635,44 @@
             }
         });
     });
+
+    $(document).ready(function() {
+        // Make Payment 버튼 클릭 이벤트
+        $('.checkout-button').on('click', function() {
+            iamport(); // iamport() 함수 실행
+        });
+    });
+
+    // Payment 버튼 클릭 이벤트
+    function iamport(){
+        //가맹점 식별코드
+        IMP.init('imp43336677');
+        IMP.request_pay({
+            pg: "html5_inicis",
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name: allProductNames, //결제창에서 보여질 이름
+            amount :  parseInt($('#total-value').text().substring(1)), //실제 결제되는 가격
+            buyer_email : 'iamport@siot.do',
+            buyer_name : '구매자이름',
+            buyer_tel : '010-1234-5678',
+            buyer_addr : '서울 강남구 도곡동',
+            buyer_postcode : '123-456'
+        }, function(rsp) {
+            console.log(rsp);
+            if ( rsp.success ) {
+                var msg = '결제가 완료되었습니다.';
+                msg += '고유ID : ' + rsp.imp_uid;
+                msg += '상점 거래ID : ' + rsp.merchant_uid;
+                msg += '결제 금액 : ' + rsp.paid_amount;
+                msg += '카드 승인번호 : ' + rsp.apply_num;
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+            }
+            alert(msg);
+        });
+    }
 </script>
 
 
