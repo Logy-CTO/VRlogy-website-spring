@@ -243,7 +243,7 @@
                             </div>
                         </div>
                         <div class="col-lg-12 checkout-button">
-                            <a class="main-btn btn-c-white" data-toggle="modal">Make Payment</a>
+                            <a class="main-btn btn-c-white"  data-toggle="modal">Make Payment</a>
                         </div>
                     </div>
                 </div>
@@ -643,35 +643,107 @@
         });
     });
 
-    // Payment 버튼 클릭 이벤트
-    function iamport(){
-        //가맹점 식별코드
-        IMP.init('imp43336677');
-        IMP.request_pay({
-            pg: "html5_inicis",
-            pay_method : 'card',
-            merchant_uid : 'merchant_' + new Date().getTime(),
-            name: allProductNames, //결제창에서 보여질 이름
-            amount :  parseInt($('#total-value').text().substring(1)), //실제 결제되는 가격
-            buyer_email : 'iamport@siot.do',
-            buyer_name : '구매자이름',
-            buyer_tel : '010-1234-5678',
-            buyer_addr : '서울 강남구 도곡동',
-            buyer_postcode : '123-456'
-        }, function(rsp) {
-            console.log(rsp);
-            if ( rsp.success ) {
-                var msg = '결제가 완료되었습니다.';
-                msg += '고유ID : ' + rsp.imp_uid;
-                msg += '상점 거래ID : ' + rsp.merchant_uid;
-                msg += '결제 금액 : ' + rsp.paid_amount;
-                msg += '카드 승인번호 : ' + rsp.apply_num;
-            } else {
-                var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
+    $('.checkout-button a').click(function() {
+        // 현재 로그인한 사용자의 필수 정보를 확인하는 AJAX 요청
+        $.ajax({
+            type: 'GET',
+            url: '/mypage/checkRequiredInfo',
+            success: function(response) {
+                if (response) {
+                    alert('마이페이지에서 주소, 이름, 우편번호, 전화번호를 등록해주세요!');
+                    location.href = '/mypage'; // 마이페이지로 이동
+                }
+            },
+            error: function(error) {
+                console.error(error);
             }
-            alert(msg);
         });
+    });
+
+    // Payment 버튼 클릭 이벤트
+    function iamport() {
+        // 가맹점 식별코드
+        IMP.init('imp43336677');
+
+        // 현재 로그인한 사용자의 정보를 가져오는 AJAX 요청
+        $.ajax({
+            type: 'GET',
+            url: '/mypage/getCurrentUserInfo',
+            success: function(response) {
+                var userInfo = response;
+
+                if (!userInfo) {
+                    alert('마이페이지에서 정보를 등록해주세요!');
+                    location.href = '/cart'; // cart 페이지로 이동
+                    return; // 함수 종료
+                }
+
+                IMP.request_pay({
+                    pg: "html5_inicis",
+                    pay_method: 'card',
+                    merchant_uid: 'merchant_' + new Date().getTime(),
+                    name: allProductNames, // 결제창에서 보여질 이름
+                    amount: parseInt($('#total-value').text().substring(1)), // 실제 결제되는 가격
+                    buyer_email: userInfo.email,
+                    buyer_name: userInfo.name,
+                    buyer_tel: userInfo.phoneNumber,
+                    buyer_addr: userInfo.address,
+                    buyer_postcode: userInfo.postcode
+                }, function(rsp) {
+                    console.log(rsp);
+                    if (rsp.success) {
+                        var msg = '결제가 완료되었습니다.\n';
+                        msg += '고유ID : ' + rsp.imp_uid + '\n';
+                        msg += '상점 거래ID : ' + rsp.merchant_uid + '\n';
+                        msg += '결제 금액 : ' + rsp.paid_amount + '\n';
+                        msg += '카드 승인번호 : ' + rsp.apply_num;
+
+                        // 결제가 성공했으니 라이선스를 적용한다.
+                        applyLicense(userInfo.email, msg);
+                    } else {
+                        var msg = '결제에 실패하였습니다.';
+                        msg += '에러내용 : ' + rsp.error_msg;
+                        alert(msg);
+                    }
+                });
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function applyLicense(email, msg) {
+        // 구매한 상품 중 'vrlogy program'이 있는지 확인
+        var hasVrlogyProgram = checkIfHasVrlogyProgram();
+
+        if (hasVrlogyProgram) {
+            $.ajax({
+                url: '/apply-license',
+                method: 'POST',
+                data: { memberId: email },
+                success:function(applyResponse){
+                    if(applyResponse.status === "success") {
+                        alert(msg + '\n\n축하합니다! VRlogy Program 라이선스가 적용되었습니다.');
+                    } else {
+                        alert(msg);
+                    }
+                },
+                error:function(){
+                    alert("라이선스 적용 실패");
+                }
+            });
+        } else {
+            alert(msg + '\n\n감사합니다!');
+        }
+    }
+    function checkIfHasVrlogyProgram() {
+        // 여기에 구매한 상품을 확인하는 로직을 추가
+        // 만약 'vrlogy program'을 구매했다면 true를 반환, 그렇지 않으면 false를 반환
+
+        // 예시: allProductNames 배열에 'vrlogy program'이 포함되어 있는지 확인
+        var vrlogyProgramIndex = allProductNames.indexOf('VRlogy Program');
+        return vrlogyProgramIndex !== -1;
     }
 </script>
 
