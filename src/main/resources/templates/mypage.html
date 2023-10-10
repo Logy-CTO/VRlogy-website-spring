@@ -438,9 +438,21 @@
     });
 
     // Email Update
-    $("#updateEmailBtn").click(function() {
-        let newEmail = $("#newEmail").val();
-        if (newEmail) {
+
+    $(document).ready(function() {
+        $('#updateEmailBtn').click(function() {
+            var newEmail = $('#newEmail').val();
+
+            if (!newEmail) {
+                alert('유효한 이메일 주소를 입력해주세요.');
+                return;
+            }
+
+            if (!isValidEmail(newEmail)) {
+                alert('유효한 이메일 주소를 입력해주세요.');
+                return;
+            }
+
             $.ajax({
                 type: "POST",
                 url: "/mypage/updateEmail",
@@ -448,14 +460,21 @@
                 success: function(response) {
                     if (response.success) {
                         $("#currentEmail").val(newEmail);
-                        alert("Email updated successfully!");
+                        alert("이메일이 성공적으로 업데이트되었습니다!");
                     } else {
-                        alert("Error updating email.");
+                        alert("이메일 업데이트 중 오류가 발생했습니다.");
                     }
                 }
             });
-        }
+        });
     });
+
+    function isValidEmail(email) {
+        // 이메일 주소의 유효성을 검사하는 정규식 패턴
+        var emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+        return emailPattern.test(email);
+    }
+
 
     // Password Update
     $("#updatePasswordBtn").click(function() {
@@ -553,6 +572,7 @@
         }
 
     });
+
 
 </script>
 
