@@ -785,4 +785,16 @@
     #copy_right::after {
         width: 100%;
     }
+    @media (max-width: 991px) {
+        .desktop-only {
+            display: none;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .mobile-only {
+            display: none;
+        }
+    }
+
 }
