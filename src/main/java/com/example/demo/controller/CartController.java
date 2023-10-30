@@ -48,8 +48,6 @@ public class CartController {
             response.put("status", "success");
             response.put("message", "Product added to cart successfully!");
 
-            // 구매가 완료되면 processPurchase 메서드 호출
-            cartService.processPurchase(memberId);
         } catch (Exception e) {
             response.put("status", "error");
             response.put("message", "Error while adding product to cart");

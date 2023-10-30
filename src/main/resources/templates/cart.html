@@ -754,6 +754,7 @@
 
                         // 결제가 성공했으니 라이선스를 적용한다.
                         applyLicense(userInfo.email, msg);
+
                     } else {
                         var msg = '결제에 실패하였습니다.';
                         msg += '에러내용 : ' + rsp.error_msg;

@@ -66,6 +66,4 @@ public class CartService {
         cartRepository.deleteByMemberId(memberId);
     }
 
-
-    // 생략...
 }
