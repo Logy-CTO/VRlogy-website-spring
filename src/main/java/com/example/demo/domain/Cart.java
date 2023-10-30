@@ -9,7 +9,6 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; // 카트 아이템의 고유 ID
-
     private String memberId; // 사용자의 username 또는 memberId
     private String productName; // 제품 이름
     private BigDecimal amount; // 금액

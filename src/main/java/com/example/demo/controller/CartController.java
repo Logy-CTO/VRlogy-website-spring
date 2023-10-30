@@ -9,21 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Controller
 public class CartController {
 
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private CartService cartService; // CartService 주입 추가
 
     @GetMapping("/cart")
     public String getCart() {
@@ -44,16 +47,15 @@ public class CartController {
 
             response.put("status", "success");
             response.put("message", "Product added to cart successfully!");
+
+            // 구매가 완료되면 processPurchase 메서드 호출
+            cartService.processPurchase(memberId);
         } catch (Exception e) {
             response.put("status", "error");
             response.put("message", "Error while adding product to cart");
         }
         return response;
     }
-
-
-    @Autowired
-    private CartService cartService;
 
     @GetMapping("/get-cart-items")
     public ResponseEntity<List<Cart>> getCartItems(@RequestParam String memberId) {
