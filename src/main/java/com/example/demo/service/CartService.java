@@ -35,13 +35,16 @@ public class CartService {
         cartRepository.deleteByMemberIdAndProductName(memberId, productName);
     }
 
+    @Autowired
+    private MemberRepository memberRepository;
+
     @Transactional
     public void processPurchase(String memberId) {
         List<Cart> cartItems = cartRepository.findByMemberId(memberId);
 
-        MemberInfo memberInfo = MemberRepository.findByUsername(memberId);  // Using memberRepository
+        MemberInfo member = memberRepository.findByUsername(memberId);
 
-        if (memberInfo == null) {
+        if (member == null) {
             throw new RuntimeException("MemberInfo not found for memberId: " + memberId);
         }
 
@@ -52,10 +55,10 @@ public class CartService {
             purchasedCart.setMemberId(cartItem.getMemberId());
 
             // Set other properties from MemberInfo
-            purchasedCart.setName(memberInfo.getName());
-            purchasedCart.setAddress(memberInfo.getAddress());
-            purchasedCart.setPostcode(memberInfo.getPostcode());
-            purchasedCart.setPhoneNumber(memberInfo.getPhoneNumber());
+            purchasedCart.setName(member.getName());
+            purchasedCart.setAddress(member.getAddress());
+            purchasedCart.setPostcode(member.getPostcode());
+            purchasedCart.setPhoneNumber(member.getPhoneNumber());
 
             purchasedCartRepository.save(purchasedCart);
         }

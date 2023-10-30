@@ -15,6 +15,7 @@ public class MemberService {
     @Transactional
     public boolean updateName(String username, String newName) {
         MemberInfo member = memberRepository.findByUsername(username);
+
         if (member != null) {
             member.setName(newName);
             memberRepository.save(member);
