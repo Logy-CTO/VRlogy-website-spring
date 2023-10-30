@@ -108,4 +108,21 @@ public class CartController {
 
         return response;
     }
+    @PostMapping("/process-purchase")
+    @ResponseBody
+    public Map<String, String> processPurchase(@RequestParam String memberId) {
+        Map<String, String> response = new HashMap<>();
+
+        try {
+            cartService.processPurchase(memberId);
+
+            response.put("status", "success");
+            response.put("message", "Purchase processed successfully!");
+        } catch (Exception e) {
+            response.put("status", "error");
+            response.put("message", "Error processing purchase");
+        }
+
+        return response;
+    }
 }

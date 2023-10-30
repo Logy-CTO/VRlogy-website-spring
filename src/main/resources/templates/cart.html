@@ -723,6 +723,7 @@
         $.ajax({
             type: 'GET',
             url: '/mypage/getCurrentUserInfo',
+
             success: function(response) {
                 var userInfo = response;
 
@@ -755,6 +756,8 @@
                         // 결제가 성공했으니 라이선스를 적용한다.
                         applyLicense(userInfo.email, msg);
 
+                        // processPurchase 메서드 호출
+                        processPurchase(userInfo.email);
                     } else {
                         var msg = '결제에 실패하였습니다.';
                         msg += '에러내용 : ' + rsp.error_msg;
@@ -767,6 +770,24 @@
             }
         });
     }
+
+    function processPurchase(memberId) {
+        $.ajax({
+            type: 'POST',
+            url: '/process-purchase',
+            data: {
+                memberId: memberId
+            },
+            success: function(response) {
+                console.log(response);
+                // 응답 처리
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    }
+
 
     function applyLicense(email, msg) {
         // 구매한 상품 중 'vrlogy program'이 있는지 확인
