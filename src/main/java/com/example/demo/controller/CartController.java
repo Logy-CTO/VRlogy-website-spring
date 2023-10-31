@@ -110,11 +110,11 @@ public class CartController {
     }
     @PostMapping("/process-purchase")
     @ResponseBody
-    public Map<String, String> processPurchase(@RequestParam String memberId) {
+    public Map<String, String> processPurchase(@RequestParam String memberId, String applyNum) {
         Map<String, String> response = new HashMap<>();
 
         try {
-            cartService.processPurchase(memberId);
+            cartService.processPurchase(memberId, applyNum);
 
             response.put("status", "success");
             response.put("message", "Purchase processed successfully!");

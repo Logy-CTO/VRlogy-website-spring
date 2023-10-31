@@ -7,15 +7,10 @@ import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.PurchasedCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CartService {
@@ -39,7 +34,7 @@ public class CartService {
     private MemberRepository memberRepository;
 
     @Transactional
-    public void processPurchase(String memberId) {
+    public void processPurchase(String memberId, String applyNum) {
         List<Cart> cartItems = cartRepository.findByMemberId(memberId);
 
         MemberInfo member = memberRepository.findByUsername(memberId);
@@ -59,6 +54,8 @@ public class CartService {
             purchasedCart.setAddress(member.getAddress());
             purchasedCart.setPostcode(member.getPostcode());
             purchasedCart.setPhoneNumber(member.getPhoneNumber());
+
+            purchasedCart.setApplyNum(applyNum); // applyNum 설정
 
             purchasedCartRepository.save(purchasedCart);
         }

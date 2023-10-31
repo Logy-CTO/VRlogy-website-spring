@@ -757,7 +757,7 @@
                         applyLicense(userInfo.email, msg);
 
                         // processPurchase 메서드 호출
-                        processPurchase(userInfo.email);
+                        processPurchase(userInfo.email, rsp.apply_num);
                     } else {
                         var msg = '결제에 실패하였습니다.';
                         msg += '에러내용 : ' + rsp.error_msg;
@@ -771,12 +771,13 @@
         });
     }
 
-    function processPurchase(memberId) {
+    function processPurchase(memberId, applyNum) {
         $.ajax({
             type: 'POST',
             url: '/process-purchase',
             data: {
-                memberId: memberId
+                memberId: memberId,
+                applyNum: applyNum
             },
             success: function(response) {
                 console.log(response);
