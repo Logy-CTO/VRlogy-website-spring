@@ -3,19 +3,26 @@ package com.example.demo.controller;
 import com.example.demo.domain.MemberInfo;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.LicenseService;
+import com.example.demo.service.CalorieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import com.example.demo.domain.Calorie;
 
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
 
+    @Autowired
+    private  CalorieService calorieService;
     @Autowired
     private MemberService memberService;
     @Autowired
@@ -38,8 +45,21 @@ public class MypageController {
     @ResponseBody
     public ResponseEntity<?> updateEmail(@RequestParam String newEmail, HttpSession session) {
         String username = (String) session.getAttribute("username");
-        boolean success = memberService.updateEmail(username, newEmail);
-        return createResponse(success);
+        boolean emailExists = memberService.isEmailExists(newEmail);
+
+        if (emailExists) {
+            return ResponseEntity.badRequest().body("이미 존재하는 아이디입니다");
+        }
+        else {
+            boolean success = memberService.updateEmail(username, newEmail);
+            return createResponse(success);
+        }
+    }
+    @PostMapping("/updateSessionEmail")
+    @ResponseBody
+    public ResponseEntity<?> updateSessionEmail(@RequestParam String newEmail, HttpSession session) {
+        session.setAttribute("username", newEmail);
+        return createResponse(true);
     }
 
     @PostMapping("/updatePassword")
@@ -132,5 +152,9 @@ public class MypageController {
 
             return ResponseEntity.ok(isMissingInfo); // 필수 정보가 누락되었으면 true 반환
         }
+    }
+    @GetMapping("/calorieInfo")
+    public List<Calorie> getCaloriesByMemberId(@RequestParam String memberId) {
+        return calorieService.getCaloriesByMemberId(memberId);
     }
 }

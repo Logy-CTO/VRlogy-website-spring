@@ -157,7 +157,7 @@
                 <a class="nav-link nl-m-top" id="logoutBtnMobile" href="#"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nl-m-top" id="myPageBtn" href="mypage"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
+                <a class="nav-link nl-m-top" id="myPageBtnMobile" href="mypage"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
             </li>
         </ul>
         <div class="menu-close">
@@ -263,7 +263,8 @@
                 <div class="form-group">
                     <input type="text" id="currentAddress" placeholder="" disabled class="form-control smaller-placeholder"><br/>
                     <input type="text" id="newAddress" placeholder="New Address" required autocomplete= "off" class= "form-control smaller-placeholder">
-                    <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updateAddressBtn">Update Address</button>
+                    <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updateAddressBtn">Search Address</button>
+                    <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updateABtn">Update Address</button>
                 </div>
             </div>
         </div>
@@ -274,7 +275,8 @@
                 <div class="form-group">
                     <input type="text" id="currentPostcode" placeholder="" disabled class="form-control smaller-placeholder"><br/>
                     <input type="text" id="newPostcode" placeholder="New Postcode" required autocomplete= "off" class= "form-control smaller-placeholder">
-                    <button type= "button" class= "btn btn-primary mt-2 main-btn half-size-btn" id= "updatePostcodeBtn">Update Postcode</button>
+                    <button type= "button" class= "btn btn-primary mt-2 main-btn half-size-btn" id= "updatePostcodeBtn">Search Address</button>
+                    <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updatePBtn">Update Address</button>
                 </div>
             </div>
         </div>
@@ -282,12 +284,21 @@
         <h4>License Information</h4>
         <div class="row">
             <div class="col-md-6">
-                <p>License: <span style="color: green; font-weight: bold;">Valid</span></p>
-                <p>Expiration Date: December 31, 2023</p>
+                <p>License: <span id="licenseStatus"></span></p>
+                <p id="expirationDate"></p>
+            </div>
+        </div>
+
+        <h4>Total calories burned</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <p>calories: <span id="CaloriesBurned"></span></p>
+                <p>date: <span id="CalorieDate"></span></p>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Email Update Section -->
 
 
@@ -537,7 +548,7 @@
                 success: function(response) {
                     if (response.success) {
                         $("#currentName").val(newName);
-                        alert("Name updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating name.");
                     }
@@ -557,15 +568,34 @@
                 success: function(response) {
                     if (response.success) {
                         $("#currentEmail").val(newEmail);
-                        alert("Email updated successfully!");
+                        alert("등록 되었습니다.");
+                        updateSessionEmail(newEmail);
                     } else {
                         alert("Error updating email.");
                     }
+                },
+                error: function() {
+                    alert("이미 존재하는 아이디 입니다.");
                 }
             });
         }
     });
-
+    // 세션의 이메일을 업데이트하는 함수
+    function updateSessionEmail(newEmail) {
+        $.ajax({
+            type: "POST",
+            url: "/mypage/updateSessionEmail",
+            data: { newEmail: newEmail },
+            success: function(response) {
+                if (!response.success) {
+                    alert("Error updating session email.");
+                }
+            },
+            error: function() {
+                alert("Error updating session email.");
+            }
+        });
+    }
     // Password Update
     $("#updatePasswordBtn").click(function() {
         let newPassword = $("#newPassword").val();
@@ -576,7 +606,7 @@
                 data: { newPassword: newPassword },
                 success: function(response) {
                     if (response.success) {
-                        alert("Password updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating password.");
                     }
@@ -596,7 +626,7 @@
                 success: function(response) {
                     if (response.success) {
                         $("#currentPhoneNumber").val(newPhoneNumber);
-                        alert("Phone number updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating phone number.");
                     }
@@ -606,7 +636,7 @@
     });
 
     // Address Update
-    $("#updateAddressBtn").click(function() {
+    $("#updateABtn").click(function() {
         let newAddress = $("#newAddress").val();
         if (newAddress) {
             $.ajax({
@@ -615,8 +645,7 @@
                 data: { newAddress: newAddress },
                 success: function(response) {
                     if (response.success) {
-                        $("#currentAddress").val(newAddress);
-                        alert("Address updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating address.");
                     }
@@ -626,7 +655,7 @@
     });
 
     // Postcode Update
-    $("#updatePostcodeBtn").click(function() {
+    $("#updatePBtn").click(function() {
         let newPostcode = $("#newPostcode").val();
         if (newPostcode) {
             $.ajax({
@@ -635,8 +664,7 @@
                 data: { newPostcode: newPostcode },
                 success: function(response) {
                     if (response.success) {
-                        $("#currentPostcode").val(newPostcode);
-                        alert("Postcode updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating postcode.");
                     }
@@ -644,8 +672,8 @@
             });
         }
     });
-    // "Update Address" 버튼을 클릭했을 때 실행되는 함수
 
+    // "Search Address" 버튼을 클릭했을 때 실행되는 함수
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -681,17 +709,13 @@
         }).open();
     }
 
+    // "Search Address" 버튼 클릭 시 실행되는 코드
     document.getElementById("updateAddressBtn").addEventListener("click", function() {
-        // 주소 업데이트 버튼 클릭 시 실행되는 코드
         sample6_execDaumPostcode();
-
     });
 
     document.getElementById("updatePostcodeBtn").addEventListener("click", function() {
-        // 우편번호 업데이트 버튼 클릭 시 실행되는 코드
         sample6_execDaumPostcode();
-        // 현재 우편번호를 가져오고 업데이트된 우편번호를 newPostcode로 옮김
-
     });
 
     function checkAuthentication() {
@@ -774,9 +798,42 @@
             });
         }
     }
+    $.ajax({
+        type: "GET",
+        url: "/mypage/licenseInfo",
+        success: function(licenseInfo) {
+            if (licenseInfo.status === "Valid") {
+                $("#licenseStatus").html('<span style="color: green; font-weight: bold;">Valid</span>');
+                $("#expirationDate").text("Expiration Date: " + licenseInfo.expirationDate);
+            } else {
+                $("#licenseStatus").html('<span style="color: red; font-weight: bold;">Invalid</span>');
+                $("#expirationDate").text(""); // 빈 문자열로 설정하여 숨김
+            }
+        },
+        error: function(error) {
+            console.log("Error fetching license information:", error);
+        }
+
+    });
+        $.ajax({
+            url: '/mypage/calorieInfo',
+            type: 'GET',
+            success: function(data) {
+                // 가져온 데이터를 span에 표시
+                $('#CaloriesBurned').text("Calories: " + data.calorie);
+                $('#CalorieDate').text("Date: " + data.date);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+
+
+
 </script>
 
 
 </body>
+
 
 </html>

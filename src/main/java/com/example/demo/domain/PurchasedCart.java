@@ -12,32 +12,18 @@ public class PurchasedCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
-    @JoinColumn(name = "member_id", insertable = false, updatable = false)
-    private MemberInfo memberInfo;
-
     @Column(name = "product_name")
     private String productName;
 
-    private BigDecimal amount;
+    @Column(name = "total_price")
+    private BigDecimal totalPrice;
 
     @Column(name = "member_id")
     private String memberId;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "purchase_date", insertable = false, updatable = false,
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "purchase_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date purchaseDate;
-
-    private String name;
-
-    private String address;
-
-    @Column(name = "post_code")
-    private String postcode;
-
-    @Column(name = "phone_number")
-    private String phoneNumber;
 
     @Column(name = "apply_num")
     private String applyNum;
@@ -56,14 +42,6 @@ public class PurchasedCart {
         this.id = id;
     }
 
-    public MemberInfo getMemberInfo() {
-        return memberInfo;
-    }
-
-    public void setMemberInfo(MemberInfo memberInfo) {
-        this.memberInfo = memberInfo;
-    }
-
     public String getProductName() {
         return productName;
     }
@@ -72,12 +50,12 @@ public class PurchasedCart {
         this.productName = productName;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getMemberId() {
@@ -94,38 +72,6 @@ public class PurchasedCart {
 
     public void setPurchaseDate(Date purchaseDate) {
         this.purchaseDate = purchaseDate;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPostcode() {
-        return postcode;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getApplyNum() {
