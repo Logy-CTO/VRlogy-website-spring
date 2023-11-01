@@ -30,6 +30,9 @@ public class MypageController {
     @ResponseBody
     public ResponseEntity<?> updateName(@RequestParam String newName, HttpSession session) {
         String username = (String) session.getAttribute("username");
+
+
+
         boolean success = memberService.updateName(username, newName);
         return createResponse(success);
     }
@@ -38,8 +41,15 @@ public class MypageController {
     @ResponseBody
     public ResponseEntity<?> updateEmail(@RequestParam String newEmail, HttpSession session) {
         String username = (String) session.getAttribute("username");
-        boolean success = memberService.updateEmail(username, newEmail);
-        return createResponse(success);
+        boolean emailExists = memberService.isEmailExists(newEmail);
+
+        if (emailExists) {
+            return ResponseEntity.badRequest().body("이미 존재하는 아이디입니다");
+        }
+        else {
+            boolean success = memberService.updateEmail(username, newEmail);
+            return createResponse(success);
+        }
     }
 
     @PostMapping("/updatePassword")
