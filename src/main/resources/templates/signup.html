@@ -88,52 +88,49 @@
 <script src="/js/waypoints.min.js"></script>
 <script src="/js/custom.js"></script>
 <script>
-    const handleSignUp= () => {
+    const handleSignUp = () => {
+        var signUpButton = document.getElementById("signUpButton");
+        signUpButton.disabled = true;
+
         var signUpEmail = document.getElementById("signUpEmail").value;
         var signUpPassword = document.getElementById("signUpPassword").value;
         var confirmPassword = document.getElementById("confirmPassword").value;
 
         if (signUpPassword !== confirmPassword) {
             alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+            signUpButton.disabled = false; // 버튼 활성화
             return false;
         }
 
         var xhr = new XMLHttpRequest();
 
-        // CSRF 토큰 값을 가져옵니다.
         var token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 
         xhr.open('POST', '/signup', true);
-
-        // 요청 헤더에 CSRF 토큰 값을 추가합니다.
         xhr.setRequestHeader('X-CSRF-TOKEN', token);
 
-        // 서버 응답 처리
         xhr.onload = function() {
             if (xhr.status === 200) {
-
-                // JSON 문자열을 자바스크립트 객체로 변환합니다.
                 var response = JSON.parse(xhr.responseText);
-
-                if (response.result === "success") {   // 속성 이름은 서버 응답에 따라 변경될 수 있습니다.
+                if (response.result === "success") {
                     alert("회원 가입이 완료되었습니다.");
                     window.location.href = "/";
-                } else if (response.result === "duplicate") {   // 속성 이름은 서버 응답에 따라 변경될 수 있습니다.
+                } else if (response.result === "duplicate") {
                     alert("이미 사용 중인 이메일 주소입니다.");
-                } else if (response.result === "error") {   // 속성 이름은 서버 응답에 따라 변경될 수 있습니다.
+                } else if (response.result === "error") {
                     alert("오류가 발생했습니다.");
                 }
             }
+            signUpButton.disabled = false; // 버튼 활성화
         };
 
-        // 요청 데이터 설정
         var data = new FormData();
         data.append('username', signUpEmail);
         data.append('password', signUpPassword);
 
         xhr.send(data);
 
-        return false; // 폼 제출을 여기서 처리하므로 false 반환
+        return false;
     };
 </script>
 </body>
