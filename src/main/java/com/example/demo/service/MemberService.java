@@ -23,7 +23,10 @@ public class MemberService {
         }
         return false;
     }
-
+    @Transactional
+    public boolean isEmailExists(String newEmail) {
+        return memberRepository.existsByUsername(newEmail);
+    }
     @Transactional
     public boolean updateEmail(String currentUsername, String newEmail) {
         MemberInfo member = memberRepository.findByUsername(currentUsername);
