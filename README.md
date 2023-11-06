@@ -12,7 +12,7 @@ VRlogy는 VRlogy프로그램을 위한웹사이트입니다. 이 저장소는 VR
 ### 📋 전제 조건
 
 - Java 11+
-- Maven
+- Gradle
 
 ### 🔧 설치 및 실행
 
@@ -32,7 +32,7 @@ java -jar target/name_of_your_jar.jar
 
 Backend: Spring Boot
 Database: [MySQL]
-Others: [React,JS,Naver Cloud]
+Others: [JS,Naver Cloud]
 
 ### 🤝 기여하기
 
