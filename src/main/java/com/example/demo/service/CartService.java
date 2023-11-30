@@ -8,7 +8,7 @@ import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.PurchasedCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.Date;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -40,26 +40,27 @@ public class CartService {
         MemberInfo member = memberRepository.findByUsername(memberId);
 
         if (member == null) {
-            throw new RuntimeException("MemberInfo not found for memberId: " + memberId);
+            throw new RuntimeException("회원정보에 id가 조회되지 않습니다. " + memberId);
         }
 
         for (Cart cartItem : cartItems) {
             PurchasedCart purchasedCart = new PurchasedCart();
             purchasedCart.setProductName(cartItem.getProductName());
-            purchasedCart.setAmount(cartItem.getAmount());
-            purchasedCart.setMemberId(cartItem.getMemberId());
+            purchasedCart.setTotalPrice(cartItem.getAmount());
 
-            // Set other properties from MemberInfo
-            purchasedCart.setName(member.getName());
-            purchasedCart.setAddress(member.getAddress());
-            purchasedCart.setPostcode(member.getPostcode());
-            purchasedCart.setPhoneNumber(member.getPhoneNumber());
+            Date currentDate = new Date();
+            purchasedCart.setPurchaseDate(currentDate); // 현재 날짜 및 시간 설정
 
-            purchasedCart.setApplyNum(applyNum); // applyNum 설정
+            MemberInfo memberInfo = memberRepository.findByUsername(memberId);
+            String address = memberInfo.getAddress();
+            purchasedCart.setShippingAddress(address);
+            purchasedCart.setMemberId(memberId);
+            purchasedCart.setApplyNum(applyNum);
 
             purchasedCartRepository.save(purchasedCart);
         }
 
+        // 카트에서 해당 멤버의 상품 삭제
         cartRepository.deleteByMemberId(memberId);
     }
 
