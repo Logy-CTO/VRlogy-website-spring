@@ -506,112 +506,27 @@
         }
     }
 
-
-    $(document).ready(function() {
-        // 로그인 상태 확인
-        checkAuthentication();
-
-        // Add to Cart 버튼 클릭 이벤트
-        $('.addToCartButton').click(addToCartHandler);
-
-        // Checkout button click event
-        $('#checkoutButton').click(checkoutHandler);
-
-        loadCartItems(); // 페이지 로드 시 장바구니 항목 로드
-
-        function addToCartHandler(e) {
-            e.preventDefault();
-            $.ajax({
-                url: '/check-authentication',
-                method: 'GET',
-                success: function(response) {
-                    if (response.authenticated) {
-                        let username = response.username;
-                        let productName = $(e.target).data('product-name');
-                        let amount = $(e.target).data('amount');
-                        $.ajax({
-                            url: '/cart',
-                            method: 'POST',
-                            data: {
-                                memberId: username,
-                                productName: productName,
-                                amount: amount
-                            },
-                            success: function(cartResponse) {
-                                if (cartResponse.status === "success") {
-                                    alert(cartResponse.message);
-                                    loadCartItems();  // 장바구니 목록 다시 불러오기
-                                } else {
-                                    alert(cartResponse.message);
-                                }
-                            }
-                        });
-                    } else {
-                        alert("로그인을 해주세요");
-                    }
-                }
-            });
-        }
-
-        function checkoutHandler(e) {
-            e.preventDefault();
-            $.ajax({
-                url: '/check-authentication',
-                method: 'GET',
-                success:function(response){
-                    if(response.authenticated){
-                        window.location.href="cart";
-                    }else{
-                        alert("로그인을 해주세요");
-                        window.location.href="/";  // 메인 페이지로 리다이렉션
-                    }
-                },
-                error:function(){
-                    alert("로그인 상태를 확인하는데 실패했습니다.");
-                }
-            });
-        }
-
-
-    });
-
-    // 마이페이지 버튼 클릭 이벤트
-    $('#myPageBtn, #myPageBtnMobile').click(function(e) {
-        e.preventDefault(); // Prevent the default action (navigation)
-        $.ajax({
-            url: '/check-authentication',
-            method: 'GET',
-            success: function(response) {
-                if (response.authenticated) {
-                    window.location.href = 'mypage'; // Redirect to mypage if authenticated
-                } else {
-                    alert("로그인을 해주세요");
-                    window.location.href = '/';  // Redirect to main page if not authenticated
-                }
-            },
-            error: function() {
-                alert("로그인 상태를 확인하는데 실패했습니다.");
-            }
-        });
-    });
-
-
+    let allProductNames = "";
     $(document).ready(function() {
         function loadCartItems() {
             $.ajax({
                 url: '/check-authentication',
                 method: 'GET',
-                success: function(response) {
+                success: function (response) {
                     if (response.authenticated) {
                         let currentMemberId = response.username;
 
                         $.ajax({
                             url: '/get-cart-items',
                             method: 'GET',
-                            data: { memberId: currentMemberId },
-                            success: function(response) {
+                            data: {memberId: currentMemberId},
+                            success: function (response) {
+                                let productNames = response.map(cartItem => cartItem.productName);
+                                allProductNames = productNames.join(', ');
                                 // cartItemsContainer ID를 사용하여 해당 위치 선택
+                                let cartItemsContainer = $('#cartItemsContainer');
                                 let cartItemsContainer2 = $('#cartItemsContainer2');
+                                cartItemsContainer.empty(); // 기존 항목 제거
                                 cartItemsContainer2.empty();
                                 let totalAmount = response.reduce((sum, cartItem) => sum + parseFloat(cartItem.amount), 0);
                                 // 각 장바구니 항목에 대해 HTML 생성
@@ -620,12 +535,11 @@
                                 $('#checkoutButton').text(`Checkout $${totalAmount.toFixed(2)}`);
                                 $('#cartItemCount').text(response.length);
                                 $('#cartItemCountNavbar').text(response.length); //
-
                                 response.forEach(cartItem => {
                                     let imagePath = ""; // 이미지 경로를 저장할 변수
 
                                     // productName에 따라 imagePath 설정
-                                    switch(cartItem.productName) {
+                                    switch (cartItem.productName) {
                                         case "PICO 4":
                                             imagePath = "/images/35059704619.20221216134925.jpg";
                                             break;
@@ -646,6 +560,17 @@
                                             break;
                                     }
 
+                                    let itemHtml = `
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="cart-items text-center">
+                                                <img src="${imagePath}" alt="${cartItem.productName}" width="100"> <!-- 이미지 추가 -->
+                                                <h3>$${cartItem.amount}</h3>
+                                                <h4>${cartItem.productName}</h4>
+                                                <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    `;
+
                                     let itemHtml2 = `
                                     <div class="row cart-item">
                                         <div class="col-sm-4 col-lg-4 cart-img">
@@ -659,11 +584,12 @@
                                     </div>
                                 `;
 
+                                    cartItemsContainer.append(itemHtml);
                                     cartItemsContainer2.append(itemHtml2);
                                 });
 
                                 // "x" 버튼 클릭 이벤트 핸들러 추가
-                                $('#cartItemsContainer2').on('click', '.deleteCartItem', function(e)  {
+                                $('#cartItemsContainer, #cartItemsContainer2').on('click', '.deleteCartItem', function (e) {
                                     e.preventDefault();
                                     let productName = $(this).data('product-name');
                                     $.ajax({
@@ -673,30 +599,122 @@
                                             productName: productName,
                                             memberId: currentMemberId,
                                         },
-                                        success: function(deleteResponse) {
+                                        success: function (deleteResponse) {
                                             if (deleteResponse.status === "success") {
                                                 loadCartItems(); // 삭제 후, 장바구니 항목을 다시 로드
                                             } else {
                                                 alert(deleteResponse.message);
                                             }
                                         },
-                                        error: function() {
+                                        error: function () {
                                             alert("장바구니 항목을 삭제하는 데 실패했습니다.");
                                         }
                                     });
                                 });
                             },
-                            error: function() {
+                            error: function () {
                                 alert("장바구니 항목을 가져오는 데 실패했습니다.");
                             }
                         });
+                    } else {
+                        alert("로그인을 해주세요");
                     }
                 }
             });
         }
 
-        loadCartItems(); // 페이지 로드 시 장바구니 항목 로드
+        $(document).ready(function () {
+            // 로그인 상태 확인
+            checkAuthentication();
+
+            // Add to Cart 버튼 클릭 이벤트
+            $('.addToCartButton').click(addToCartHandler);
+
+            // Checkout button click event
+            $('#checkoutButton').click(checkoutHandler);
+
+            loadCartItems(); // 페이지 로드 시 장바구니 항목 로드
+
+            function addToCartHandler(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/check-authentication',
+                    method: 'GET',
+                    success: function (response) {
+                        if (response.authenticated) {
+                            let username = response.username;
+                            let productName = $(e.target).data('product-name');
+                            let amount = $(e.target).data('amount');
+                            $.ajax({
+                                url: '/cart',
+                                method: 'POST',
+                                data: {
+                                    memberId: username,
+                                    productName: productName,
+                                    amount: amount
+                                },
+                                success: function (cartResponse) {
+                                    if (cartResponse.status === "success") {
+                                        alert(cartResponse.message);
+                                        loadCartItems();  // 장바구니 목록 다시 불러오기
+                                    } else {
+                                        alert(cartResponse.message);
+                                    }
+                                }
+                            });
+                        } else {
+                            alert("로그인을 해주세요");
+                        }
+                    }
+                });
+            }
+
+            function checkoutHandler(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/check-authentication',
+                    method: 'GET',
+                    success: function (response) {
+                        if (response.authenticated) {
+                            window.location.href = "cart";
+                        } else {
+                            alert("로그인을 해주세요");
+                            window.location.href = "/";  // 메인 페이지로 리다이렉션
+                        }
+                    },
+                    error: function () {
+                        alert("로그인 상태를 확인하는데 실패했습니다.");
+                    }
+                });
+            }
+
+
+        });
+
+        // 마이페이지 버튼 클릭 이벤트
+        $('#myPageBtn, #myPageBtnMobile').click(function (e) {
+            e.preventDefault(); // Prevent the default action (navigation)
+            $.ajax({
+                url: '/check-authentication',
+                method: 'GET',
+                success: function (response) {
+                    if (response.authenticated) {
+                        window.location.href = 'mypage'; // Redirect to mypage if authenticated
+                    } else {
+                        alert("로그인을 해주세요");
+                        window.location.href = '/';  // Redirect to main page if not authenticated
+                    }
+                },
+                error: function () {
+                    alert("로그인 상태를 확인하는데 실패했습니다.");
+                }
+            });
+        });
     });
+
+
+
+
 </script>
 
 
