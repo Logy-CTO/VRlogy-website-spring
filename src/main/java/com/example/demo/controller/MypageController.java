@@ -30,9 +30,6 @@ public class MypageController {
     @ResponseBody
     public ResponseEntity<?> updateName(@RequestParam String newName, HttpSession session) {
         String username = (String) session.getAttribute("username");
-
-
-
         boolean success = memberService.updateName(username, newName);
         return createResponse(success);
     }
@@ -50,6 +47,12 @@ public class MypageController {
             boolean success = memberService.updateEmail(username, newEmail);
             return createResponse(success);
         }
+    }
+    @PostMapping("/updateSessionEmail")
+    @ResponseBody
+    public ResponseEntity<?> updateSessionEmail(@RequestParam String newEmail, HttpSession session) {
+        session.setAttribute("username", newEmail);
+        return createResponse(true);
     }
 
     @PostMapping("/updatePassword")

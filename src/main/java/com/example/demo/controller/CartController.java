@@ -46,11 +46,11 @@ public class CartController {
             cartRepository.save(cart);
 
             response.put("status", "success");
-            response.put("message", "Product added to cart successfully!");
+            response.put("message", "장바구니에 추가하였습니다");
 
         } catch (Exception e) {
             response.put("status", "error");
-            response.put("message", "Error while adding product to cart");
+            response.put("message", "장바구니에 추가하는 중 오류가 발생했습니다. ");
         }
         return response;
     }
@@ -67,10 +67,10 @@ public class CartController {
         try {
             cartService.deleteCartItem(memberId, productName);
             response.put("status", "success");
-            response.put("message", "Item successfully deleted from cart");
+            response.put("message", "장바구니에서 아이템을 삭제했습니다");
         } catch (Exception e) {
             response.put("status", "error");
-            response.put("message", "Error deleting item from cart");
+            response.put("message", "장바구니에서 아이템을 삭제하는 중 오류가 발생했습니다.");
         }
         return response;
     }
@@ -99,11 +99,11 @@ public class CartController {
                 licenseRepository.save(license);
 
                 response.put("status", "success");
-                response.put("message", "License applied successfully!");
+                response.put("message", "라이센스가 성공적으로 등록되었습니다.");
             }
         } catch (Exception e) {
             response.put("status", "error");
-            response.put("message", "Error applying license");
+            response.put("message", "라이센스등록에 오류가 발생하였습니다.");
         }
 
         return response;
@@ -117,10 +117,10 @@ public class CartController {
             cartService.processPurchase(memberId, applyNum);
 
             response.put("status", "success");
-            response.put("message", "Purchase processed successfully!");
+            response.put("message", "구매가 성공적으로 진행 되었습니다.");
         } catch (Exception e) {
             response.put("status", "error");
-            response.put("message", "Error processing purchase");
+            response.put("message", "구매하는데 오류가 발생했습니다.");
         }
 
         return response;
