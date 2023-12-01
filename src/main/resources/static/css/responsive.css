@@ -837,6 +837,12 @@
         width: 80%;
     }
 }
+@media(min-width:992px) and (max-width:1199px) {
+    input.form-control {
+        width: 100%;
+    }
+}
+=======
 input.form-control {
     width: 100%;
     padding: 10px;

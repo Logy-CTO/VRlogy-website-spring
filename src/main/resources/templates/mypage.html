@@ -288,8 +288,17 @@
                 <p id="expirationDate"></p>
             </div>
         </div>
+
+        <h4>Total calories burned</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <p>calories: <span id="CaloriesBurned"></span></p>
+                <p>date: <span id="CalorieDate"></span></p>
+            </div>
+        </div>
     </div>
 </div>
+
 <!-- Email Update Section -->
 
 
@@ -539,7 +548,7 @@
                 success: function(response) {
                     if (response.success) {
                         $("#currentName").val(newName);
-                        alert("Name updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating name.");
                     }
@@ -559,7 +568,7 @@
                 success: function(response) {
                     if (response.success) {
                         $("#currentEmail").val(newEmail);
-                        alert("Email updated successfully!");
+                        alert("등록 되었습니다.");
                         updateSessionEmail(newEmail);
                     } else {
                         alert("Error updating email.");
@@ -597,7 +606,7 @@
                 data: { newPassword: newPassword },
                 success: function(response) {
                     if (response.success) {
-                        alert("Password updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating password.");
                     }
@@ -617,7 +626,7 @@
                 success: function(response) {
                     if (response.success) {
                         $("#currentPhoneNumber").val(newPhoneNumber);
-                        alert("Phone number updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating phone number.");
                     }
@@ -636,7 +645,7 @@
                 data: { newAddress: newAddress },
                 success: function(response) {
                     if (response.success) {
-                        alert("Address updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating address.");
                     }
@@ -655,7 +664,7 @@
                 data: { newPostcode: newPostcode },
                 success: function(response) {
                     if (response.success) {
-                        alert("Postcode updated successfully!");
+                        alert("등록 되었습니다.");
                     } else {
                         alert("Error updating postcode.");
                     }
@@ -806,11 +815,23 @@
         }
 
     });
+        $.ajax({
+            url: '/mypage/calorieInfo',
+            type: 'GET',
+            success: function(data) {
+                // 가져온 데이터를 span에 표시
+                $('#CaloriesBurned').text("Calories: " + data.calorie);
+                $('#CalorieDate').text("Date: " + data.date);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+
+
 
 </script>
 
 
 </body>
 
-
-</html>
