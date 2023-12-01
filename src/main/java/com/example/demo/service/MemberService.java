@@ -84,3 +84,5 @@ public class MemberService {
     public MemberInfo getMemberInfoByUsername(String username) {
         return memberRepository.findByUsername(username);
     }
+
+}

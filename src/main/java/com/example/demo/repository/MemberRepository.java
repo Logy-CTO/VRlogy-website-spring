@@ -8,4 +8,4 @@ public interface MemberRepository extends JpaRepository<MemberInfo, Integer> {
     MemberInfo findByUsername(String username);
     boolean existsByUsername(String username);
     int countByUsername(String username);
-
+}

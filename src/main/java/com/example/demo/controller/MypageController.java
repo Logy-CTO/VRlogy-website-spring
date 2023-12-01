@@ -1,4 +1,3 @@
-
 package com.example.demo.controller;
 
 import com.example.demo.domain.MemberInfo;
@@ -158,4 +157,4 @@ public class MypageController {
     public List<Calorie> getCaloriesByMemberId(@RequestParam String memberId) {
         return calorieService.getCaloriesByMemberId(memberId);
     }
-
+}

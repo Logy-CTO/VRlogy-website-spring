@@ -62,3 +62,6 @@ public class CartService {
 
         // 카트에서 해당 멤버의 상품 삭제
         cartRepository.deleteByMemberId(memberId);
+    }
+
+}
