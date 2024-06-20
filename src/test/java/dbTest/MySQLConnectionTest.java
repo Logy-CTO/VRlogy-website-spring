@@ -8,9 +8,9 @@ import java.sql.DriverManager;
 public class MySQLConnectionTest {
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://db-iqs5p.pub-cdb.ntruss.com:3306/vrlogydb?characterEncoding=utf8";
-    private static final String USER = "user";
-    private static final String PASSWORD = "vrlogy12@";
+    private static final String URL = "jdbc:mysql://db-iqs5p.pub-cdb.ntruss.com:3306/logydbtest12?characterEncoding=utf8";
+    private static final String USER = "user12";
+    private static final String PASSWORD = "logy122221!@@#";
 
     @Test
     public void testConnection() throws Exception {

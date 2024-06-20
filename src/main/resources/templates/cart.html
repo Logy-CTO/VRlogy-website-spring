@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="HTML5 Template, eSports, Gaming, Tournament, Landing, Page, SEO" />
     <meta name="description" content="Logy - eSports & Gaming HTML5 Template" />
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Logy - Cart</title>
 
     <!--font-awesome icons link-->
@@ -94,10 +96,6 @@
     </div>
 </div>
 
-<!-- Billing Modal -->
-
-<!-- Modal -->
-
 <!-- HEADER AREA START -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="navber">
     <div class="container">
@@ -122,7 +120,6 @@
                     <a class="nav-link nl-m-top account-icon" id="logoutBtn" href="#"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
-                    <!-- 마이페이지 버튼 -->
                     <a class="nav-link nl-m-top account-icon" id="myPageBtn" href="mypage"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
@@ -197,18 +194,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="row" id="cartItemsContainer">
-
-                    <!--
-                    <div class="col-lg-6 col-sm-6">
-                        <div class="cart-items text-center">
-                            <h3>$9.8</h3>
-                            <img src="images/KakaoTalk_Photo_2023-09-07-23-39-23.png" alt="product-img" class="img-fluid">
-                            <h4>VRlogy Program</h4>
-                            <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    -->
-
+                    <!-- Dynamic cart items will be loaded here -->
                 </div>
             </div>
             <div class="col-lg-1"></div>
@@ -243,7 +229,6 @@
                                 <div class="col-4 col-lg-4 col-sm-4 text-right">
                                     <h4 id="total-value">$0.00</h4>
                                 </div>
-
                             </div>
                         </div>
                         <div class="col-lg-12 checkout-button">
@@ -397,7 +382,7 @@
 <!-- COPY_RIGHT AREA END -->
 
 <!-- JavaScript -->
-<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/slick.min.js"></script>
 <script src="/js/venobox.min.js"></script>
@@ -406,17 +391,136 @@
 <script src="/js/waypoints.min.js"></script>
 <script src="/js/custom.js"></script>
 <script src="/js/ytplayer-plugin.js"></script>
-<!-- Custom Script for addToCart -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript"	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script>
+    var csrfToken = $('meta[name="_csrf"]').attr('content');
+    var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+    var allProductNames = "";
+
+    function loadCartItems() {
+        $.ajax({
+            url: '/check-authentication',
+            method: 'GET',
+            success: function(response) {
+                if (response.authenticated) {
+                    let currentMemberId = response.username;
+                    console.log("Current Member ID: ", currentMemberId);
+
+                    $.ajax({
+                        url: '/get-cart-items',
+                        method: 'GET',
+                        data: { memberId: currentMemberId },
+                        success: function(response) {
+                            console.log("Cart Items: ", response);
+
+                            let productNames = response.map(cartItem => cartItem.productName);
+                            allProductNames = productNames.join(', ');
+                            let cartItemsContainer = $('#cartItemsContainer');
+                            let cartItemsContainer2 = $('#cartItemsContainer2');
+                            cartItemsContainer.empty();
+                            cartItemsContainer2.empty();
+                            let totalAmount = response.reduce((sum, cartItem) => sum + parseFloat(cartItem.amount), 0);
+                            $('#subtotal-value').text(`$${totalAmount.toFixed(2)}`);
+                            $('#total-value').text(`$${totalAmount.toFixed(2)}`);
+                            $('#checkoutButton').text(`Checkout $${totalAmount.toFixed(2)}`);
+                            $('#cartItemCount').text(response.length);
+                            $('#cartItemCountNavbar').text(response.length);
+                            response.forEach(cartItem => {
+                                let imagePath = "";
+                                switch(cartItem.productName) {
+                                    case "PICO 4":
+                                        imagePath = "/images/35059704619.20221216134925.jpg";
+                                        break;
+                                    case "C920 PRO":
+                                        imagePath = "/images/16646684053.20181217180044.jpg";
+                                        break;
+                                    case "Oculus Quest 2":
+                                        imagePath = "/images/30612946625.20230130153345.jpg";
+                                        break;
+                                    case "VRlogy treadmill":
+                                        imagePath = "/images/KATWALKC2.jpg";
+                                        break;
+                                    case "VRlogy Program":
+                                        imagePath = "/images/KakaoTalk_Photo_2023-09-07-23-39-23.png";
+                                        break;
+                                    default:
+                                        imagePath = "";
+                                        break;
+                                }
+
+                                let itemHtml = `
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="cart-items text-center">
+                                        <img src="${imagePath}" alt="${cartItem.productName}" width="100">
+                                        <h3>$${cartItem.amount}</h3>
+                                        <h4>${cartItem.productName}</h4>
+                                        <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                `;
+
+                                let itemHtml2 = `
+                                <div class="row cart-item">
+                                    <div class="col-sm-4 col-lg-4 cart-img">
+                                        <img src="${imagePath}" alt="${cartItem.productName}" class="img-fluid">
+                                        <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </div>
+                                    <div class="col-sm-8 col-lg-8">
+                                        <h3>${cartItem.productName}</h3>
+                                        <span>$${cartItem.amount}</span>
+                                    </div>
+                                </div>
+                                `;
+
+                                cartItemsContainer.append(itemHtml);
+                                cartItemsContainer2.append(itemHtml2);
+                            });
+
+                            $('#cartItemsContainer, #cartItemsContainer2').on('click', '.deleteCartItem', function(e)  {
+                                e.preventDefault();
+                                let productName = $(this).data('product-name');
+                                console.log("Deleting item: ", productName);
+
+                                $.ajax({
+                                    url: '/delete-cart-item',
+                                    method: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({
+                                        productName: productName,
+                                        memberId: currentMemberId
+                                    }),
+                                    beforeSend: function(xhr) {
+                                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                                    },
+                                    success: function(deleteResponse) {
+                                        console.log("Delete Response: ", deleteResponse);
+                                        if (deleteResponse.status === "success") {
+                                            loadCartItems();
+                                        } else {
+                                            alert(deleteResponse.message);
+                                        }
+                                    },
+                                    error: function() {
+                                        alert('Error deleting item from cart');
+                                    }
+                                });
+                            });
+                        },
+                        error: function() {
+                            alert("Failed to get shopping cart items.");
+                        }
+                    });
+                } else {
+                    alert("Please login.");
+                }
+            }
+        });
+    }
+
     $(document).ready(function() {
-        // 로그인 상태 확인
         checkAuthentication();
 
-        // Add to Cart 버튼 클릭 이벤트
         $('.addToCartButton').click(function(e) {
             e.preventDefault();
             $.ajax({
@@ -424,20 +528,26 @@
                 method: 'GET',
                 success: function(response) {
                     if (response.authenticated) {
-                        // 로그인한 사용자의 경우
-                        let username = response.username; // 응답에서 username 가져오기
-                        let productName = $(e.target).data('product-name'); // 버튼의 data-product-name 속성에서 제품 이름 가져오기
-                        let amount = $(e.target).data('amount'); // 버튼의 data-amount 속성에서 제품 가격 가져오기
+                        let username = response.username;
+                        let productName = $(e.target).data('product-name');
+                        let amount = $(e.target).data('amount');
+
+                        console.log("Adding to cart: ", { username, productName, amount });
 
                         $.ajax({
                             url: '/cart',
                             method: 'POST',
-                            data: {
-                                memberId: username, // username을 memberId로 전송
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                memberId: username,
                                 productName: productName,
-                                amount: amount // 금액도 함께 전송
+                                amount: amount
+                            }),
+                            beforeSend: function(xhr) {
+                                xhr.setRequestHeader(csrfHeader, csrfToken);
                             },
                             success: function(cartResponse) {
+                                console.log("Add to Cart Response: ", cartResponse);
                                 if (cartResponse.status === "success") {
                                     alert(cartResponse.message);
                                 } else {
@@ -446,8 +556,7 @@
                             }
                         });
                     } else {
-                        // 로그인하지 않은 사용자의 경우
-                        alert("로그인을 해주세요");
+                        alert("Please login.");
                     }
                 }
             });
@@ -458,7 +567,6 @@
             var logoutBtn = $('#logoutBtn');
             var loginBtnMobile = $('#loginBtnMobile');
             var logoutBtnMobile = $('#logoutBtnMobile');
-
 
             function handleViewportChange() {
                 var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
@@ -496,167 +604,31 @@
                 }
             }
 
-            // 로그인 상태 확인
-            $.ajax({
-                url: '/check-authentication',
-                method: 'GET',
-                success: function(response) {
-                    if (response.authenticated) {
-
-                    } else {
-
-                    }
-                }
-            });
-
             handleViewportChange();
             window.addEventListener('resize', handleViewportChange);
 
-            // 로그아웃 버튼 클릭 시 이벤트 핸들러 등록
-            $('#logoutBtn').click(function(e) {
-                e.preventDefault();
-                logout();
-            });
-            $('#logoutBtnMobile').click(function(e) {
+            $('#logoutBtn, #logoutBtnMobile').click(function(e) {
                 e.preventDefault();
                 logout();
             });
 
-            // 로그아웃 함수
             function logout() {
                 $.ajax({
                     url: '/logout',
                     method: 'POST',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    },
                     success: function(response) {
                         window.location.href = '/';
                     }
                 });
             }
         }
+
+        loadCartItems();
     });
 
-
-        let allProductNames = "";
-    $(document).ready(function() {
-        function loadCartItems() {
-            $.ajax({
-                url: '/check-authentication',
-                method: 'GET',
-                success: function(response) {
-                    if (response.authenticated) {
-                        let currentMemberId = response.username;
-
-                        $.ajax({
-                            url: '/get-cart-items',
-                            method: 'GET',
-                            data: { memberId: currentMemberId },
-                            success: function(response) {
-                                let productNames = response.map(cartItem => cartItem.productName);
-                                allProductNames = productNames.join(', ');
-                                // cartItemsContainer ID를 사용하여 해당 위치 선택
-                                let cartItemsContainer = $('#cartItemsContainer');
-                                let cartItemsContainer2 = $('#cartItemsContainer2');
-                                cartItemsContainer.empty(); // 기존 항목 제거
-                                cartItemsContainer2.empty();
-                                let totalAmount = response.reduce((sum, cartItem) => sum + parseFloat(cartItem.amount), 0);
-                                // 각 장바구니 항목에 대해 HTML 생성
-                                $('#subtotal-value').text(`$${totalAmount.toFixed(2)}`);
-                                $('#total-value').text(`$${totalAmount.toFixed(2)}`); // 할인이 없으므로 subtotal과 동일
-                                $('#checkoutButton').text(`Checkout $${totalAmount.toFixed(2)}`);
-                                $('#cartItemCount').text(response.length);
-                                $('#cartItemCountNavbar').text(response.length); //
-                                response.forEach(cartItem => {
-                                    let imagePath = ""; // 이미지 경로를 저장할 변수
-
-                                    // productName에 따라 imagePath 설정
-                                    switch(cartItem.productName) {
-                                        case "PICO 4":
-                                            imagePath = "/images/35059704619.20221216134925.jpg";
-                                            break;
-                                        case "C920 PRO":
-                                            imagePath = "/images/16646684053.20181217180044.jpg";
-                                            break;
-                                        case "Oculus Quest 2":
-                                            imagePath = "/images/30612946625.20230130153345.jpg";
-                                            break;
-                                        case "VRlogy treadmill":
-                                            imagePath = "/images/KATWALKC2.jpg";
-                                            break;
-                                        case "VRlogy Program":
-                                            imagePath = "/images/KakaoTalk_Photo_2023-09-07-23-39-23.png";
-                                            break;
-                                        default:
-                                            imagePath = ""; // 기본 이미지 경로 (해당하는 productName이 없을 경우)
-                                            break;
-                                    }
-
-                                    let itemHtml = `
-                                        <div class="col-lg-6 col-sm-6">
-                                            <div class="cart-items text-center">
-                                                <img src="${imagePath}" alt="${cartItem.productName}" width="100"> <!-- 이미지 추가 -->
-                                                <h3>$${cartItem.amount}</h3>
-                                                <h4>${cartItem.productName}</h4>
-                                                <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    `;
-
-                                    let itemHtml2 = `
-                                    <div class="row cart-item">
-                                        <div class="col-sm-4 col-lg-4 cart-img">
-                                            <img src="${imagePath}" alt="${cartItem.productName}" class="img-fluid">
-                                            <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                        </div>
-                                        <div class="col-sm-8 col-lg-8">
-                                            <h3>${cartItem.productName}</h3>
-                                            <span>$${cartItem.amount}</span>
-                                        </div>
-                                    </div>
-                                `;
-
-                                    cartItemsContainer.append(itemHtml);
-                                    cartItemsContainer2.append(itemHtml2);
-                                });
-
-                                // "x" 버튼 클릭 이벤트 핸들러 추가
-                                $('#cartItemsContainer, #cartItemsContainer2').on('click', '.deleteCartItem', function(e)  {
-                                    e.preventDefault();
-                                    let productName = $(this).data('product-name');
-                                    $.ajax({
-                                        url: '/delete-cart-item',
-                                        method: 'POST',
-                                        data: {
-                                            productName: productName,
-                                            memberId: currentMemberId,
-                                        },
-                                        success: function(deleteResponse) {
-                                            if (deleteResponse.status === "success") {
-                                                loadCartItems(); // 삭제 후, 장바구니 항목을 다시 로드
-                                            } else {
-                                                alert(deleteResponse.message);
-                                            }
-                                        },
-                                        error: function() {
-                                            alert("장바구니 항목을 삭제하는 데 실패했습니다.");
-                                        }
-                                    });
-                                });
-                            },
-                            error: function() {
-                                alert("장바구니 항목을 가져오는 데 실패했습니다.");
-                            }
-                        });
-                    } else {
-                        alert("로그인을 해주세요");
-                    }
-                }
-            });
-        }
-
-        loadCartItems(); // 페이지 로드 시 장바구니 항목 로드
-    });
-
-    // 라이센스 적용 버튼 클릭 이벤트
     $('#download').click(function(e) {
         e.preventDefault();
         $.ajax({
@@ -665,47 +637,57 @@
             success:function(response){
                 if(response.authenticated){
                     let username = response.username;
+                    console.log("Applying license for user: ", username);
+
                     $.ajax({
                         url: '/apply-license',
                         method: 'POST',
-                        data: { memberId: username },
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            memberId: username
+                        }),
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader(csrfHeader, csrfToken);
+                        },
                         success:function(applyResponse){
+                            console.log("Apply License Response: ", applyResponse);
                             if(applyResponse.status === "success") {
-                                alert("적용되었습니다.");
+                                alert("It has been applied.");
                             } else {
                                 alert(applyResponse.message);
                             }
                         },
                         error:function(){
-                            alert("적용 실패");
+                            alert("License application failed.");
                         }
                     });
                 }else{
-                    alert("로그인을 해주세요");
+                    alert("Please login.");
                 }
             },
             error:function(){
-                alert("로그인 상태를 확인하는데 실패했습니다.");
+                alert("Failed to verify login status.");
             }
         });
     });
 
     $(document).ready(function() {
-        // Make Payment 버튼 클릭 이벤트
         $('.checkout-button').on('click', function() {
-            iamport(); // iamport() 함수 실행
+            iamport();
         });
     });
 
     $('.checkout-button a').click(function() {
-        // 현재 로그인한 사용자의 필수 정보를 확인하는 AJAX 요청
         $.ajax({
             type: 'GET',
             url: '/mypage/checkRequiredInfo',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
             success: function(response) {
                 if (response) {
-                    alert('마이페이지에서 주소, 이름, 우편번호, 전화번호를 등록해주세요!');
-                    location.href = '/mypage'; // 마이페이지로 이동
+                    alert('Please register your address, name, postal code, and phone number on My Page!');
+                    location.href = '/mypage';
                 }
             },
             error: function(error) {
@@ -714,53 +696,49 @@
         });
     });
 
-    // Payment 버튼 클릭 이벤트
     function iamport() {
-        // 가맹점 식별코드
         IMP.init('imp43336677');
 
-        // 현재 로그인한 사용자의 정보를 가져오는 AJAX 요청
         $.ajax({
             type: 'GET',
             url: '/mypage/getCurrentUserInfo',
-
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
             success: function(response) {
                 var userInfo = response;
 
                 if (!userInfo) {
-                    alert('마이페이지에서 정보를 등록해주세요!');
-                    location.href = '/cart'; // cart 페이지로 이동
-                    return; // 함수 종료
+                    alert('Please register your information on My Page!');
+                    location.href = '/cart';
+                    return;
                 }
 
                 IMP.request_pay({
                     pg: "html5_inicis",
                     pay_method: 'card',
                     merchant_uid: 'merchant_' + new Date().getTime(),
-                    name: allProductNames, // 결제창에서 보여질 이름
-                    amount: parseInt($('#total-value').text().substring(1)), // 실제 결제되는 가격
+                    name: allProductNames,
+                    amount: parseInt($('#total-value').text().substring(1)),
                     buyer_email: userInfo.email,
                     buyer_name: userInfo.name,
                     buyer_tel: userInfo.phoneNumber,
                     buyer_addr: userInfo.address,
                     buyer_postcode: userInfo.postcode
                 }, function(rsp) {
-                    console.log(rsp);
+                    console.log("Payment Response: ", rsp);
                     if (rsp.success) {
-                        var msg = '결제가 완료되었습니다.\n';
-                        msg += '고유ID : ' + rsp.imp_uid + '\n';
-                        msg += '상점 거래ID : ' + rsp.merchant_uid + '\n';
-                        msg += '결제 금액 : ' + rsp.paid_amount + '\n';
-                        msg += '카드 승인번호 : ' + rsp.apply_num;
+                        var msg = 'Payment completed.\n';
+                        msg += 'Unique ID: ' + rsp.imp_uid + '\n';
+                        msg += 'Store transaction ID: ' + rsp.merchant_uid + '\n';
+                        msg += 'Payment amount: ' + rsp.paid_amount + '\n';
+                        msg += 'Card approval number: ' + rsp.apply_num;
 
-                        // 결제가 성공했으니 라이선스를 적용한다.
-                        applyLicense(userInfo.email, msg);
-
-                        // processPurchase 메서드 호출
-                        processPurchase(userInfo.email, rsp.apply_num);
+                        applyLicense(userInfo.username, msg);
+                        processPurchase(userInfo.username, rsp.apply_num);
                     } else {
-                        var msg = '결제에 실패하였습니다.';
-                        msg += '에러내용 : ' + rsp.error_msg;
+                        var msg = 'Payment failed.\n';
+                        msg += 'Error: ' + rsp.error_msg;
                         alert(msg);
                     }
                 });
@@ -772,59 +750,67 @@
     }
 
     function processPurchase(memberId, applyNum) {
+        console.log('Processing purchase:', { memberId, applyNum });
         $.ajax({
             type: 'POST',
             url: '/process-purchase',
-            data: {
+            contentType: 'application/json',
+            data: JSON.stringify({
                 memberId: memberId,
                 applyNum: applyNum
+            }),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
             },
             success: function(response) {
-                console.log(response);
-                // 응답 처리
+                console.log('Response from server:', response);
+                alert(response.message);
+                if (response.status === "success") {
+                    loadCartItems();
+                }
             },
             error: function(error) {
-                console.error(error);
+                console.error('Error in purchase:', error);
+                alert("Error in your purchase.");
             }
         });
     }
 
-
     function applyLicense(email, msg) {
-        // 구매한 상품 중 'vrlogy program'이 있는지 확인
         var hasVrlogyProgram = checkIfHasVrlogyProgram();
 
         if (hasVrlogyProgram) {
             $.ajax({
                 url: '/apply-license',
                 method: 'POST',
-                data: { memberId: email },
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    memberId: email
+                }),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken); // CSRF 헤더 설정
+                },
                 success:function(applyResponse){
                     if(applyResponse.status === "success") {
-                        alert(msg + '\n\n축하합니다! VRlogy Program 라이선스가 적용되었습니다.');
+                        alert(msg + '\n\nCongratulations! Your VRlogy Program license has been applied.\n');
                     } else {
                         alert(msg);
                     }
                 },
                 error:function(){
-                    alert("라이선스 적용 실패");
+                    alert("License application failed.");
                 }
             });
         } else {
-            alert(msg + '\n\n감사합니다!');
+            alert(msg + '\n\nThank you!');
         }
     }
-    function checkIfHasVrlogyProgram() {
-        // 여기에 구매한 상품을 확인하는 로직을 추가
-        // 만약 'vrlogy program'을 구매했다면 true를 반환, 그렇지 않으면 false를 반환
 
-        // 예시: allProductNames 배열에 'vrlogy program'이 포함되어 있는지 확인
+    function checkIfHasVrlogyProgram() {
         var vrlogyProgramIndex = allProductNames.indexOf('VRlogy Program');
         return vrlogyProgramIndex !== -1;
     }
 </script>
-
-
 
 </body>
 

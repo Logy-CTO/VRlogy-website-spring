@@ -2,7 +2,8 @@
 <html lang="zxx">
 
 <head>
-    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="HTML5 Template, eSports, Gaming, Bootstrap4, Responsive" />
@@ -15,7 +16,18 @@
     <link rel="stylesheet" href="/css/venobox.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
-
+    <style>
+        .invalid-feedback {
+            display: none;
+            color: red;
+            font-size: 0.9em;
+        }
+        .valid-feedback {
+            display: none;
+            color: green;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 
 <body id="darkmode">
@@ -39,30 +51,33 @@
                     <div class="login-inner-form">
                         <div class="details">
                             <h3>Sign Up</h3>
-                            <form onsubmit="return handleSignUp()">
+                            <form id="signUpForm" onsubmit="return handleSignUp()">
                                 <!-- CSRF 토큰 추가 -->
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <input type="hidden" id="csrfToken" name="_csrf" value="${_csrf.token}" />
                                 <!-- 이메일, 비밀번호 입력 필드 등 -->
                                 <div class="form-group">
-                                    <input type="email" id="signUpEmail" name="username" class="input-text" placeholder="Email" required> <!-- required 속성 추가 -->
+                                    <input type="email" id="signUpEmail" name="username" class="input-text" placeholder="Email" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" id="signUpPassword" name="password" class="input-text" placeholder="Password" required> <!-- required 속성 추가 -->
+                                    <input type="password" id="signUpPassword" name="password" class="input-text" placeholder="Password" required>
+                                    <div id="passwordFeedback" class="invalid-feedback">Password must be at least 8 characters long and contain a number and a special character.</div>
+                                    <div id="passwordValidFeedback" class="valid-feedback">Password is valid.</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" id="confirmPassword" name="confirmPassword" class="input-text" placeholder="Confirm Password" required> <!-- required 속성 추가 -->
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="input-text" placeholder="Confirm Password" required>
+                                    <div id="confirmPasswordFeedback" class="invalid-feedback">Passwords do not match.</div>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" id="signUpButton" class="btn-md btn-theme btn-block">Free Signup</button>
                                 </div>
                             </form>
 
-                            <p>Already have an account?<a href="login.html"> Login Now</a></p>
+                            <p>Already have an account?<a href="login"> Login Now</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12 col-pad-0 bg-img align-self-center none-992">
-                    <a href="index.html" class="logoss">
+                    <a href="/" class="logoss">
                         Logy<span>.</span>
                     </a>
                     <p>Step into the Future with logy: Elevating Reality through VR Treadmills and Software Solutions</p>
@@ -88,6 +103,32 @@
 <script src="/js/waypoints.min.js"></script>
 <script src="/js/custom.js"></script>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var signUpPassword = document.getElementById("signUpPassword");
+        var confirmPassword = document.getElementById("confirmPassword");
+        var passwordFeedback = document.getElementById("passwordFeedback");
+        var passwordValidFeedback = document.getElementById("passwordValidFeedback");
+        var confirmPasswordFeedback = document.getElementById("confirmPasswordFeedback");
+
+        signUpPassword.addEventListener("input", function() {
+            if (isPasswordValid(signUpPassword.value)) {
+                passwordFeedback.style.display = "none";
+                passwordValidFeedback.style.display = "block";
+            } else {
+                passwordFeedback.style.display = "block";
+                passwordValidFeedback.style.display = "none";
+            }
+        });
+
+        confirmPassword.addEventListener("input", function() {
+            if (signUpPassword.value !== confirmPassword.value) {
+                confirmPasswordFeedback.style.display = "block";
+            } else {
+                confirmPasswordFeedback.style.display = "none";
+            }
+        });
+    });
+
     const handleSignUp = () => {
         var signUpButton = document.getElementById("signUpButton");
         signUpButton.disabled = true;
@@ -96,41 +137,74 @@
         var signUpPassword = document.getElementById("signUpPassword").value;
         var confirmPassword = document.getElementById("confirmPassword").value;
 
-        if (signUpPassword !== confirmPassword) {
-            alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+        // 비밀번호 유효성 검사
+        if (!isPasswordValid(signUpPassword)) {
+            alert("Password must be at least 8 characters long and contain a number and a special character.");
             signUpButton.disabled = false; // 버튼 활성화
             return false;
         }
 
-        var xhr = new XMLHttpRequest();
+        // 비밀번호 확인
+        if (signUpPassword !== confirmPassword) {
+            alert("Passwords do not match.");
+            signUpButton.disabled = false; // 버튼 활성화
+            return false;
+        }
 
-        var token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        var csrfToken = $('meta[name="_csrf"]').attr('content');
+        var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
 
-        xhr.open('POST', '/signup', true);
-        xhr.setRequestHeader('X-CSRF-TOKEN', token);
+        console.log("CSRF Token: ", csrfToken);
+        console.log("CSRF Header: ", csrfHeader);
 
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
+        $.ajax({
+            type: 'POST',
+            url: '/signup',
+            data: JSON.stringify({
+                username: signUpEmail,
+                password: signUpPassword,
+                confirmPassword: confirmPassword
+            }),
+            contentType: 'application/json',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
+            success: function(response) {
                 if (response.result === "success") {
-                    alert("회원 가입이 완료되었습니다.");
+                    alert("Sign up successful.");
                     window.location.href = "/";
                 } else if (response.result === "duplicate") {
-                    alert("이미 사용 중인 이메일 주소입니다.");
+                    alert("Email already in use.");
                 } else if (response.result === "error") {
-                    alert("오류가 발생했습니다.");
+                    alert("An error occurred.");
+                } else if (response.result === "passwordMismatch") {
+                    alert("Passwords do not match.");
+                } else if (response.result === "invalidPassword") {
+                    alert("Invalid password. Password must be at least 8 characters long and contain a number and a special character.");
                 }
+                signUpButton.disabled = false; // 버튼 활성화
+            },
+            error: function(xhr, status, error) {
+                alert("An error occurred.");
+                signUpButton.disabled = false; // 버튼 활성화
             }
-            signUpButton.disabled = false; // 버튼 활성화
-        };
-
-        var data = new FormData();
-        data.append('username', signUpEmail);
-        data.append('password', signUpPassword);
-
-        xhr.send(data);
+        });
 
         return false;
+    };
+
+    // 비밀번호 유효성 검사 메서드
+    const isPasswordValid = (password) => {
+        if (password.length < 8) {
+            return false;
+        }
+        if (!password.match(/\d/)) {
+            return false;
+        }
+        if (!password.match(/[!@#$%^&*(),.?":{}|<>]/)) {
+            return false;
+        }
+        return true;
     };
 </script>
 </body>

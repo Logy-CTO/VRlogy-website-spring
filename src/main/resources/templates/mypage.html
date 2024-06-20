@@ -6,24 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="HTML5 Template, eSports, Gaming, Tournament, Landing, Page, SEO" />
     <meta name="description" content="Logy - eSports & Gaming HTML5 Template" />
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Logy</title>
 
-    <!--font-awesome icons link-->
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <!-- Add Font Awesome CSS-->
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/slick.css">
-    <link rel="stylesheet" href="/css/venobox.css">
-    <link rel="stylesheet" href="/css/lightbox.min.css">
-    <!--main style file-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.1/venobox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.1/venobox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
 </head>
 
-<body id="darkmode" onload="checkAuthentication()">
+<body id="darkmode">
 <!-- Preloader -->
 <div class="loader_screen preloader" id="preloader">
     <div class="loader loader-box">
@@ -48,7 +48,6 @@
             <div class="modal-body" id="cartItemsContainer2">
                 <!-- 장바구니 항목이 여기에 동적으로 추가됩니다 -->
             </div>
-
             <!-- 생략 -->
             <div class="modal-footer">
                 <a href="cart" class="main-btn model-btn" id="checkoutButton">Checkout $0</a>
@@ -122,7 +121,6 @@
                     <!-- 마이페이지 버튼 -->
                     <a class="nav-link nl-m-top account-icon" id="myPageBtn" href="mypage"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link menu-icon"><i class="fa fa-bars" aria-hidden="true"></i></a>
                 </li>
@@ -186,13 +184,13 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding-top :150px; /* 상단 패딩 추가 */
-        min-height :100vh ;
+        padding-top: 150px; /* 상단 패딩 추가 */
+        min-height: 100vh;
     }
 
     h4, p {
-        color :white ;
-        margin-bottom :30px ;
+        color: white;
+        margin-bottom: 30px;
     }
 
     .valid-text {
@@ -201,13 +199,12 @@
     }
 
     .form-control {
-        width :200% ;
-        height :40px ; /* input 필드의 세로 길이를 조절 */
-
+        width: 200%;
+        height: 40px; /* input 필드의 세로 길이를 조절 */
     }
 
-    .contact-box{
-        margin-bottom :40px ; /* 간격 조절 between contact-boxes */
+    .contact-box {
+        margin-bottom: 40px; /* 간격 조절 between contact-boxes */
     }
 </style>
 
@@ -239,8 +236,8 @@
         <div class="row contact-box">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="password" id="currentPassword" placeholder="********" required autocomplete="off" pattern=". {8,}" title="Enter a password of 8 characters or more." class="form-control smaller-placeholder"><br/>
-                    <input type="password" id="newPassword" placeholder="New Password" required autocomplete="off" pattern=". {8,}" title="Enter a password of 8 characters or more." class="form-control smaller-placeholder">
+                    <input type="password" id="currentPassword" placeholder="********" required autocomplete="off" pattern=".{8,}" title="Enter a password of 8 characters or more." class="form-control smaller-placeholder"><br/>
+                    <input type="password" id="newPassword" placeholder="New Password" required autocomplete="off" pattern=".{8,}" title="Enter a password of 8 characters or more." class="form-control smaller-placeholder">
                     <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updatePasswordBtn">Update Password</button>
                 </div>
             </div>
@@ -252,7 +249,7 @@
                 <div class="form-group">
                     <input type="tel" id="currentPhoneNumber" placeholder="" required autocomplete="off" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Enter a valid phone number." class="form-control smaller-placeholder"><br/>
                     <input type="tel" id="newPhoneNumber" placeholder="New Phone Number" required autocomplete="off" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Enter a valid phone number." class="form-control smaller-placeholder">
-                    <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id ="updatePhoneNumberBtn">Update Phone Number</button>
+                    <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updatePhoneNumberBtn">Update Phone Number</button>
                 </div>
             </div>
         </div>
@@ -262,7 +259,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <input type="text" id="currentAddress" placeholder="" disabled class="form-control smaller-placeholder"><br/>
-                    <input type="text" id="newAddress" placeholder="New Address" required autocomplete= "off" class= "form-control smaller-placeholder">
+                    <input type="text" id="newAddress" placeholder="New Address" required autocomplete="off" class="form-control smaller-placeholder">
                     <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updateAddressBtn">Search Address</button>
                     <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updateABtn">Update Address</button>
                 </div>
@@ -274,14 +271,14 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <input type="text" id="currentPostcode" placeholder="" disabled class="form-control smaller-placeholder"><br/>
-                    <input type="text" id="newPostcode" placeholder="New Postcode" required autocomplete= "off" class= "form-control smaller-placeholder">
-                    <button type= "button" class= "btn btn-primary mt-2 main-btn half-size-btn" id= "updatePostcodeBtn">Search Address</button>
+                    <input type="text" id="newPostcode" placeholder="New Postcode" required autocomplete="off" class="form-control smaller-placeholder">
+                    <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updatePostcodeBtn">Search Address</button>
                     <button type="button" class="btn btn-primary mt-2 main-btn half-size-btn" id="updatePBtn">Update Address</button>
                 </div>
             </div>
         </div>
 
-        <h4>License Information</h4>
+        <h4>VRlogy Program License Information</h4>
         <div class="row">
             <div class="col-md-6">
                 <p>License: <span id="licenseStatus"></span></p>
@@ -300,39 +297,6 @@
 </div>
 
 <!-- Email Update Section -->
-
-
-<!-- BANNER AREA START -->
-
-<!-- BANNER AREA END -->
-
-<!-- GAMES AREA START -->
-
-<!-- GAMES AREA END -->
-
-<!-- ABOUT AREA START -->
-
-<!-- BRAND AREA END -->
-
-<!-- PLAYER AREA START -->
-
-<!-- PLAYER AREA END -->
-
-<!-- PRODUCT AREA START -->
-
-<!-- PRODUCT AREA END -->
-
-<!-- JOIN AREA START -->
-
-<!-- JOIN AREA END -->
-
-<!-- BLOG AREA START -->
-
-<!-- BLOG AREA END -->
-
-<!-- SUBSCRIBE AREA START -->
-
-<!-- SUBSCRIBE AREA END -->
 
 <!-- FOOTER AREA START -->
 <section id="footer">
@@ -391,30 +355,31 @@
         </div>
     </div>
 </section>
-
 <!-- COPY_RIGHT AREA END -->
-<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="path/to/ytplayer-plugin.js"></script>
 
 <!-- JavaScript -->
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/slick.min.js"></script>
-<script src="/js/venobox.min.js"></script>
-<script src="/js/lightbox.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.1/venobox.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 <script src="/js/counterup.min.js"></script>
 <script src="/js/waypoints.min.js"></script>
 <script src="/js/custom.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="/js/jquery-3.5.1.min.js"></script>
+
 <script>
-
-
-    //상품 목록 로드
     $(document).ready(function() {
+        // Set CSRF token header for all AJAX requests
+        var csrfToken = $('meta[name="_csrf"]').attr('content');
+        var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            }
+        });
+
         function loadCartItems() {
             $.ajax({
                 url: '/check-authentication',
@@ -428,20 +393,17 @@
                             method: 'GET',
                             data: { memberId: currentMemberId },
                             success: function(response) {
-                                // cartItemsContainer ID를 사용하여 해당 위치 선택
                                 let cartItemsContainer2 = $('#cartItemsContainer2');
                                 cartItemsContainer2.empty();
                                 let totalAmount = response.reduce((sum, cartItem) => sum + parseFloat(cartItem.amount), 0);
-                                // 각 장바구니 항목에 대해 HTML 생성
                                 $('#subtotal-value').text(`$${totalAmount.toFixed(2)}`);
-                                $('#total-value').text(`$${totalAmount.toFixed(2)}`); // 할인이 없으므로 subtotal과 동일
+                                $('#total-value').text(`$${totalAmount.toFixed(2)}`);
                                 $('#checkoutButton').text(`Checkout $${totalAmount.toFixed(2)}`);
                                 $('#cartItemCount').text(response.length);
-                                $('#cartItemCountNavbar').text(response.length); //
-                                response.forEach(cartItem => {
-                                    let imagePath = ""; // 이미지 경로를 저장할 변수
+                                $('#cartItemCountNavbar').text(response.length);
 
-                                    // productName에 따라 imagePath 설정
+                                response.forEach(cartItem => {
+                                    let imagePath = "";
                                     switch(cartItem.productName) {
                                         case "PICO 4":
                                             imagePath = "/images/35059704619.20221216134925.jpg";
@@ -459,7 +421,7 @@
                                             imagePath = "/images/KakaoTalk_Photo_2023-09-07-23-39-23.png";
                                             break;
                                         default:
-                                            imagePath = ""; // 기본 이미지 경로 (해당하는 productName이 없을 경우)
+                                            imagePath = "";
                                             break;
                                     }
 
@@ -474,366 +436,430 @@
                                         <span>$${cartItem.amount}</span>
                                     </div>
                                 </div>
-                            `;
-
+                                `;
                                     cartItemsContainer2.append(itemHtml2);
                                 });
 
-                                // "x" 버튼 클릭 이벤트 핸들러 추가
-                                $('#cartItemsContainer2').on('click', '.deleteCartItem', function(e)  {
+                                $('#cartItemsContainer2').on('click', '.deleteCartItem', function(e) {
                                     e.preventDefault();
                                     let productName = $(this).data('product-name');
                                     $.ajax({
                                         url: '/delete-cart-item',
                                         method: 'POST',
-                                        data: {
+                                        contentType: 'application/json',
+                                        data: JSON.stringify({
                                             productName: productName,
-                                            memberId: currentMemberId,
-                                        },
+                                            memberId: currentMemberId
+                                        }),
                                         success: function(deleteResponse) {
                                             if (deleteResponse.status === "success") {
-                                                loadCartItems(); // 삭제 후, 장바구니 항목을 다시 로드
+                                                loadCartItems();
                                             } else {
                                                 alert(deleteResponse.message);
                                             }
                                         },
-                                        error: function() {
-                                            alert("장바구니 항목을 삭제하는 데 실패했습니다.");
+                                        error: function(xhr) {
+                                            console.error('Error deleting cart item:', xhr);
+                                            alert("Failed to delete cart item.");
                                         }
                                     });
                                 });
                             },
-                            error: function() {
-                                alert("장바구니 항목을 가져오는 데 실패했습니다.");
+                            error: function(xhr) {
+                                console.error('Error fetching cart items:', xhr);
+                                alert("Failed to fetch cart items.");
                             }
                         });
                     }
+                },
+                error: function(xhr) {
+                    console.error('Error checking authentication:', xhr);
                 }
             });
         }
 
-        loadCartItems(); // 페이지 로드 시 장바구니 항목 로드
-    });
+        loadCartItems();
 
-
-
-
-    $(document).ready(function() {
-        // 페이지 로드 시 사용자 정보 가져오기
         $.ajax({
             type: "GET",
             url: "/mypage/getCurrentUserInfo",
-
             success: function(data) {
-                // 데이터를 입력 필드에 설정
                 $("#currentName").val(data.name);
                 $("#currentEmail").val(data.username);
                 $("#currentPhoneNumber").val(data.phoneNumber);
                 $("#currentAddress").val(data.address);
                 $("#currentPostcode").val(data.postcode);
-
-                setUpEventListeners();
+            },
+            error: function(error) {
+                console.error('Error fetching user info:', error);
             }
         });
-    });
 
-    // Name Update
-    $("#updateNameBtn").click(function() {
-        let newName = $("#newName").val();
-        if (newName) {
-            $.ajax({
-                type: "POST",
-                url: "/mypage/updateName",
-                data: { newName: newName },
-                success: function(response) {
-                    if (response.success) {
-                        $("#currentName").val(newName);
-                        alert("등록 되었습니다.");
-                    } else {
-                        alert("Error updating name.");
+        $("#updateNameBtn").click(function() {
+            let newName = $("#newName").val();
+            if (newName) {
+                $.ajax({
+                    type: "POST",
+                    url: "/mypage/updateName",
+                    data: JSON.stringify({ value: newName }),
+                    contentType: "application/json",
+                    success: function(response) {
+                        console.log(response);
+                        if (response === "Updated successfully.") {
+                            $("#currentName").val(newName);
+                            alert("Updated successfully.");
+                        } else {
+                            alert("Error updating name.");
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error updating name:', xhr);
+                        alert(xhr.responseText); // 서버에서 보낸 에러 메시지 표시
                     }
-                }
-            });
-        }
-    });
+                });
+            }
+        });
 
-    // Email Update
-    $("#updateEmailBtn").click(function() {
-        let newEmail = $("#newEmail").val();
-        if (newEmail) {
+        $("#updateEmailBtn").click(function() {
+            let newEmail = $("#newEmail").val();
+            if (newEmail) {
+                $.ajax({
+                    type: "POST",
+                    url: "/mypage/updateEmail",
+                    data: JSON.stringify({ value: newEmail }),
+                    contentType: "application/json",
+                    success: function(response) {
+                        console.log(response);
+                        if (response === "Updated successfully.") {
+                            $("#currentEmail").val(newEmail);
+                            alert("Updated successfully.");
+                            updateSessionEmail(newEmail);
+                        } else {
+                            alert("Error updating email.");
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error updating email:', xhr);
+                        if(xhr.status === 400) {
+                            alert(xhr.responseText); // 에러 메시지 표시
+                        } else {
+                            alert('Failed to update email.');
+                        }
+                    }
+                });
+            }
+        });
+
+        function updateSessionEmail(newEmail) {
             $.ajax({
                 type: "POST",
-                url: "/mypage/updateEmail",
-                data: { newEmail: newEmail },
+                url: "/mypage/updateSessionEmail",
+                data: JSON.stringify({ value: newEmail }),
+                contentType: "application/json",
                 success: function(response) {
-                    if (response.success) {
-                        $("#currentEmail").val(newEmail);
-                        alert("등록 되었습니다.");
-                        updateSessionEmail(newEmail);
+                    if (response === "Session updated") {
+                        console.log("Session email updated successfully.");
                     } else {
-                        alert("Error updating email.");
+                        alert("Error updating session email.");
                     }
                 },
-                error: function() {
-                    alert("이미 존재하는 아이디 입니다.");
+                error: function(xhr) {
+                    console.error('Error updating session email:', xhr);
+                    if(xhr.status === 400) {
+                        alert(xhr.responseText); // 에러 메시지 표시
+                    } else {
+                        alert('Failed to update session email.');
+                    }
                 }
             });
         }
-    });
-    // 세션의 이메일을 업데이트하는 함수
-    function updateSessionEmail(newEmail) {
+
+        $("#updatePasswordBtn").click(function() {
+            let newPassword = $("#newPassword").val();
+            if (newPassword) {
+                $.ajax({
+                    type: "POST",
+                    url: "/mypage/updatePassword",
+                    data: JSON.stringify({ value: newPassword }),
+                    contentType: "application/json",
+                    success: function(response) {
+                        console.log(response);
+                        if (response === "Updated successfully.") {
+                            alert("Updated successfully.");
+                        } else {
+                            alert("Error updating password.");
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error updating password:', xhr);
+                        if(xhr.status === 400) {
+                            alert(xhr.responseText); // 에러 메시지 표시
+                        } else {
+                            alert('Failed to update password.');
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#updatePhoneNumberBtn").click(function() {
+            let newPhoneNumber = $("#newPhoneNumber").val();
+            if (newPhoneNumber) {
+                $.ajax({
+                    type: "POST",
+                    url: "/mypage/updatePhoneNumber",
+                    data: JSON.stringify({ value: newPhoneNumber }),
+                    contentType: "application/json",
+                    success: function(response) {
+                        console.log(response);
+                        if (response === "Updated successfully.") {
+                            $("#currentPhoneNumber").val(newPhoneNumber);
+                            alert("Updated successfully.");
+                        } else {
+                            alert("Error updating phone number.");
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error updating phone number:', xhr);
+                        if(xhr.status === 400) {
+                            alert(xhr.responseText); // 에러 메시지 표시
+                        } else {
+                            alert('Failed to update phone number.');
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#updateABtn").click(function() {
+            let newAddress = $("#newAddress").val();
+            if (newAddress) {
+                $.ajax({
+                    type: "POST",
+                    url: "/mypage/updateAddress",
+                    data: JSON.stringify({ value: newAddress }),
+                    contentType: "application/json",
+                    success: function(response) {
+                        console.log(response);
+                        if (response === "Updated successfully.") {
+                            $("#currentAddress").val(newAddress);
+                            alert("Updated successfully.");
+                        } else {
+                            alert("Error updating address.");
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error updating address:', xhr);
+                        if(xhr.status === 400) {
+                            alert(xhr.responseText); // 에러 메시지 표시
+                        } else {
+                            alert('Failed to update address.');
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#updatePBtn").click(function() {
+            let newPostcode = $("#newPostcode").val();
+            if (newPostcode) {
+                $.ajax({
+                    type: "POST",
+                    url: "/mypage/updatePostcode",
+                    data: JSON.stringify({ value: newPostcode }),
+                    contentType: "application/json",
+                    success: function(response) {
+                        console.log(response);
+                        if (response === "Updated successfully.") {
+                            $("#currentPostcode").val(newPostcode);
+                            alert("Updated successfully.");
+                        } else {
+                            alert("Error updating postcode.");
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error updating postcode:', xhr);
+                        if(xhr.status === 400) {
+                            alert(xhr.responseText); // 에러 메시지 표시
+                        } else {
+                            alert('Failed to update postcode.');
+                        }
+                    }
+                });
+            }
+        });
+
+        function sample6_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    var addr = '';
+                    var extraAddr = '';
+                    if (data.userSelectedType === 'R') {
+                        addr = data.roadAddress;
+                    } else {
+                        addr = data.jibunAddress;
+                    }
+
+                    if(data.userSelectedType === 'R'){
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraAddr += data.bname;
+                        }
+                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        if(extraAddr !== ''){
+                            extraAddr = ' (' + extraAddr + ')';
+                        }
+                        document.getElementById("newAddress").value = addr + extraAddr;
+                    } else {
+                        document.getElementById("newAddress").value = '';
+                    }
+
+                    document.getElementById('currentAddress').value = addr;
+                    document.getElementById('newPostcode').value = data.zonecode;
+                    document.getElementById("currentPostcode").value = data.zonecode;
+                    document.getElementById("sample6_detailAddress").focus();
+                }
+            }).open();
+        }
+
+        $("#updateAddressBtn").click(function() {
+            sample6_execDaumPostcode();
+        });
+
+        $("#updatePostcodeBtn").click(function() {
+            sample6_execDaumPostcode();
+        });
+
+        function checkAuthentication() {
+            var loginBtn = $('#loginBtn');
+            var logoutBtn = $('#logoutBtn');
+            var loginBtnMobile = $('#loginBtnMobile');
+            var logoutBtnMobile = $('#logoutBtnMobile');
+
+            function handleViewportChange() {
+                var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+                if (viewportWidth < 992) {
+                    loginBtn.hide();
+                    logoutBtn.hide();
+                    $.ajax({
+                        url: '/check-authentication',
+                        method: 'GET',
+                        success: function(response) {
+                            if (response.authenticated) {
+                                loginBtnMobile.hide();
+                                logoutBtnMobile.show();
+                            } else {
+                                loginBtnMobile.show();
+                                logoutBtnMobile.hide();
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error('Error checking authentication:', xhr);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: '/check-authentication',
+                        method: 'GET',
+                        success: function(response) {
+                            if (response.authenticated) {
+                                loginBtn.hide();
+                                logoutBtn.show();
+                            } else {
+                                loginBtn.show();
+                                logoutBtn.hide();
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error('Error checking authentication:', xhr);
+                        }
+                    });
+                }
+            }
+
+            $.ajax({
+                url: '/check-authentication',
+                method: 'GET',
+                success: function(response) {
+                    if (response.authenticated) {
+                        loginBtn.hide();
+                        logoutBtn.show();
+                    } else {
+                        loginBtn.show();
+                        logoutBtn.hide();
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error checking authentication:', xhr);
+                }
+            });
+
+            handleViewportChange();
+            window.addEventListener('resize', handleViewportChange);
+
+            $('#logoutBtn').click(function(e) {
+                e.preventDefault();
+                logout();
+            });
+            $('#logoutBtnMobile').click(function(e) {
+                e.preventDefault();
+                logout();
+            });
+
+            function logout() {
+                $.ajax({
+                    url: '/logout',
+                    method: 'POST',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content') // CSRF 토큰 추가
+                    },
+                    success: function(response) {
+                        window.location.href = '/';
+                    },
+                    error: function(xhr) {
+                        console.error('Error logging out:', xhr);
+                    }
+                });
+            }
+        }
+
+        checkAuthentication();
+
         $.ajax({
-            type: "POST",
-            url: "/mypage/updateSessionEmail",
-            data: { newEmail: newEmail },
-            success: function(response) {
-                if (!response.success) {
-                    alert("Error updating session email.");
+            type: "GET",
+            url: "/mypage/licenseInfo",
+            success: function(licenseInfo) {
+                if (licenseInfo.status === "Valid") {
+                    $("#licenseStatus").html('<span style="color: green; font-weight: bold;">Valid</span>');
+                    $("#expirationDate").text("Expiration Date: " + licenseInfo.expirationDate);
+                } else {
+                    $("#licenseStatus").html('<span style="color: red; font-weight: bold;">Invalid</span>');
+                    $("#expirationDate").text("");
                 }
             },
-            error: function() {
-                alert("Error updating session email.");
-            }
-        });
-    }
-    // Password Update
-    $("#updatePasswordBtn").click(function() {
-        let newPassword = $("#newPassword").val();
-        if (newPassword) {
-            $.ajax({
-                type: "POST",
-                url: "/mypage/updatePassword",
-                data: { newPassword: newPassword },
-                success: function(response) {
-                    if (response.success) {
-                        alert("등록 되었습니다.");
-                    } else {
-                        alert("Error updating password.");
-                    }
-                }
-            });
-        }
-    });
-
-    // Phone Number Update
-    $("#updatePhoneNumberBtn").click(function() {
-        let newPhoneNumber = $("#newPhoneNumber").val();
-        if (newPhoneNumber) {
-            $.ajax({
-                type: "POST",
-                url: "/mypage/updatePhoneNumber",
-                data: { newPhoneNumber: newPhoneNumber },
-                success: function(response) {
-                    if (response.success) {
-                        $("#currentPhoneNumber").val(newPhoneNumber);
-                        alert("등록 되었습니다.");
-                    } else {
-                        alert("Error updating phone number.");
-                    }
-                }
-            });
-        }
-    });
-
-    // Address Update
-    $("#updateABtn").click(function() {
-        let newAddress = $("#newAddress").val();
-        if (newAddress) {
-            $.ajax({
-                type: "POST",
-                url: "/mypage/updateAddress",
-                data: { newAddress: newAddress },
-                success: function(response) {
-                    if (response.success) {
-                        alert("등록 되었습니다.");
-                    } else {
-                        alert("Error updating address.");
-                    }
-                }
-            });
-        }
-    });
-
-    // Postcode Update
-    $("#updatePBtn").click(function() {
-        let newPostcode = $("#newPostcode").val();
-        if (newPostcode) {
-            $.ajax({
-                type: "POST",
-                url: "/mypage/updatePostcode",
-                data: { newPostcode: newPostcode },
-                success: function(response) {
-                    if (response.success) {
-                        alert("등록 되었습니다.");
-                    } else {
-                        alert("Error updating postcode.");
-                    }
-                }
-            });
-        }
-    });
-
-    // "Search Address" 버튼을 클릭했을 때 실행되는 함수
-    function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var addr = '';
-                var extraAddr = '';
-                if (data.userSelectedType === 'R') {
-                    addr = data.roadAddress;
-                } else {
-                    addr = data.jibunAddress;
-                }
-
-                if(data.userSelectedType === 'R'){
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    document.getElementById("newAddress").value = addr + extraAddr;
-
-                } else {
-                    document.getElementById("newAddress").value = '';
-                }
-
-                document.getElementById('currentAddress').value = addr;
-                document.getElementById('newPostcode').value = data.zonecode;
-                document.getElementById("currentPostcode").value = data.zonecode;
-                document.getElementById("sample6_detailAddress").focus();
-            }
-        }).open();
-    }
-
-    // "Search Address" 버튼 클릭 시 실행되는 코드
-    document.getElementById("updateAddressBtn").addEventListener("click", function() {
-        sample6_execDaumPostcode();
-    });
-
-    document.getElementById("updatePostcodeBtn").addEventListener("click", function() {
-        sample6_execDaumPostcode();
-    });
-
-    function checkAuthentication() {
-        var loginBtn = $('#loginBtn');
-        var logoutBtn = $('#logoutBtn');
-        var loginBtnMobile = $('#loginBtnMobile');
-        var logoutBtnMobile = $('#logoutBtnMobile');
-
-
-        function handleViewportChange() {
-            var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-
-            if (viewportWidth < 992) {
-                loginBtn.hide();
-                logoutBtn.hide();
-                $.ajax({
-                    url: '/check-authentication',
-                    method: 'GET',
-                    success: function(response) {
-                        if (response.authenticated) {
-                            loginBtnMobile.hide();
-                            logoutBtnMobile.show();
-                        } else {
-                            loginBtnMobile.show();
-                            logoutBtnMobile.hide();
-                        }
-                    }
-                });
-            } else {
-                $.ajax({
-                    url: '/check-authentication',
-                    method: 'GET',
-                    success: function(response) {
-                        if (response.authenticated) {
-                            loginBtn.hide();
-                            logoutBtn.show();
-                        } else {
-                            loginBtn.show();
-                            logoutBtn.hide();
-                        }
-                    }
-                });
-            }
-        }
-
-        // 로그인 상태 확인
-        $.ajax({
-            url: '/check-authentication',
-            method: 'GET',
-            success: function(response) {
-                if (response.authenticated) {
-
-                } else {
-
-                }
+            error: function(error) {
+                console.error("Error fetching license information:", error);
             }
         });
 
-        handleViewportChange();
-        window.addEventListener('resize', handleViewportChange);
-
-        // 로그아웃 버튼 클릭 시 이벤트 핸들러 등록
-        $('#logoutBtn').click(function(e) {
-            e.preventDefault();
-            logout();
-        });
-        $('#logoutBtnMobile').click(function(e) {
-            e.preventDefault();
-            logout();
-        });
-
-        // 로그아웃 함수
-        function logout() {
-            $.ajax({
-                url: '/logout',
-                method: 'POST',
-                success: function(response) {
-                    window.location.href = '/';
-                }
-            });
-        }
-    }
-    $.ajax({
-        type: "GET",
-        url: "/mypage/licenseInfo",
-        success: function(licenseInfo) {
-            if (licenseInfo.status === "Valid") {
-                $("#licenseStatus").html('<span style="color: green; font-weight: bold;">Valid</span>');
-                $("#expirationDate").text("Expiration Date: " + licenseInfo.expirationDate);
-            } else {
-                $("#licenseStatus").html('<span style="color: red; font-weight: bold;">Invalid</span>');
-                $("#expirationDate").text(""); // 빈 문자열로 설정하여 숨김
-            }
-        },
-        error: function(error) {
-            console.log("Error fetching license information:", error);
-        }
-
-    });
         $.ajax({
             url: '/mypage/calorieInfo',
             type: 'GET',
             success: function(data) {
-                // 가져온 데이터를 span에 표시
                 $('#CaloriesBurned').text("Calories: " + data.calorie);
                 $('#CalorieDate').text("Date: " + data.date);
             },
             error: function(error) {
-                console.error('Error:', error);
+                console.error('Error fetching calorie info:', error);
             }
         });
-
-
+    });
 
 </script>
 
 
 </body>
-
 
 </html>

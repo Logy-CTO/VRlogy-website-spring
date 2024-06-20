@@ -1,91 +1,127 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keywords" content="HTML5 Template, eSports, Gaming, Bootstrap4, Responsive" />
-    <meta name="description" content="Logy - eSports & Gaming HTML Template" />
     <title>Logy - Login</title>
-    <!--font-awesome icons link-->
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <!-- Add Font Awesome CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/slick.css">
-    <link rel="stylesheet" href="/css/venobox.css">
-    <!--main style file-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.1/venobox.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
 </head>
-
 <body id="darkmode">
-    <!-- preloader part start -->
-    <div class="loader_screen preloader" id="preloader">
-        <div class="loader loader-box">
-            <svg viewBox="0 0 80 80">
-                <rect x="8" y="8" width="64" height="64"></rect>
-            </svg>
-        </div>
+<div class="loader_screen preloader" id="preloader">
+    <div class="loader loader-box">
+        <svg viewBox="0 0 80 80">
+            <rect x="8" y="8" width="64" height="64"></rect>
+        </svg>
     </div>
-    <!-- preloader part start -->
-
-    <!-- Login start -->
-    <div class="login-12">
-        <div class="container">
-            <div class="col-md-12 pad-0">
-                <div class="row login-box-12">
-                    <div class="col-lg-7 col-sm-12 col-pad-0 align-self-center">
-                        <div class="login-inner-form">
-                            <div class="details">
-                                <h3>LogIn</h3>
-                                <div th:if="${error}" class="alert alert-danger" role="alert">
-                                    <span th:text="${error}"></span>
-                                </div>
-                                <form id ="loginForm" action="/login" method="post" autocomplete="off">
-                                    <div class="form-group">
-                                        <input type="email" id="signInEmail" name="username" class="input-text" placeholder="Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" id="signInPassword" name="password" class="input-text" placeholder="Password">
-                                         </div>
-                                    <div class="form-group">
-                                        <button type="submit" id="signInButton" class="btn-md btn-theme btn-block">Login Now</button>
-                                    </div>
-                                </form>
-                                <p>Don't you have an account yet?<a href="signup"> SignUp Now</a></p>
+</div>
+<div class="login-12">
+    <div class="container">
+        <div class="row login-box-12">
+            <div class="col-lg-7 col-sm-12 align-self-center">
+                <div class="login-inner-form">
+                    <div class="details">
+                        <h3>LogIn</h3>
+                        <!-- 오류 메시지를 표시할 영역 -->
+                        <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+                        <form id="loginForm" method="post" autocomplete="off">
+                            <input type="hidden" id="csrfToken" name="_csrf" th:value="${_csrf.token}">
+                            <div class="form-group">
+                                <input type="email" id="signInEmail" name="username" class="input-text" placeholder="Email" required>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-12 col-sm-12 col-pad-0 bg-img align-self-center none-992">
-                        <a href="/" class="logoss">
-                            Logy<span>.</span>
-                        </a>
-                        <p>Step into the Future with logy: Elevating Reality through VR Treadmills and Software Solutions</p>
-                        <ul class="social-list clearfix">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
+                            <div class="form-group">
+                                <input type="password" id="signInPassword" name="password" class="input-text" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" id="signInButton" class="btn-md btn-theme btn-block">Login Now</button>
+                            </div>
+                        </form>
+                        <p>Don't you have an account yet?<a href="signup"> SignUp Now</a></p>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-5 col-md-12 col-sm-12 bg-img align-self-center none-992">
+                <a href="/" class="logoss">
+                    Logy<span>.</span>
+                </a>
+                <p>Step into the Future with logy: Elevating Reality through VR Treadmills and Software Solutions</p>
+                <ul class="social-list clearfix">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
         </div>
     </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.1/venobox.min.js"></script>
+<script src="/js/custom.js"></script>
+<script>
+    $(document).ready(function() {
+        console.log("Document ready");
 
+        $('#loginForm').submit(function(event) {
+            event.preventDefault();
+            console.log("Form submitted");
 
+            // CSRF 토큰과 헤더 이름 가져오기
+            var csrfToken = $('meta[name="_csrf"]').attr('content');
+            var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
 
-    <!-- Optional JavaScript -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/slick.min.js"></script>
-    <script src="/js/venobox.min.js"></script>
-    <script src="/js/counterup.min.js"></script>
-    <script src="/js/waypoints.min.js"></script>
-    <script src="/js/custom.js"></script>
+            console.log("CSRF Token: ", csrfToken);
+            console.log("CSRF Header: ", csrfHeader);
+
+            // CSRF 토큰과 헤더 이름이 제대로 가져와졌는지 확인
+            if (!csrfToken || !csrfHeader) {
+                console.error("CSRF Token or Header not found");
+                $('#errorAlert').text("CSRF Token or Header not found").show();
+                return;
+            }
+
+            var formData = {
+                username: $('#signInEmail').val(),
+                password: $('#signInPassword').val(),
+                _csrf: csrfToken
+            };
+
+            console.log("Form data: ", formData);
+
+            $.ajax({
+                type: 'POST',
+                url: '/login',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                dataType: 'json',
+                beforeSend: function(xhr) {
+                    // CSRF 헤더 설정
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function(response) {
+                    console.log("Response: ", response);
+                    if (response.status === 'success') {
+                        window.location.href = '/';
+                    } else {
+                        $('#errorAlert').text(response.message).show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: ", status, error);
+                    $('#errorAlert').text("An error occurred while processing your login request.").show();
+                }
+            });
+        });
+    });
+</script>
+
 </body>
-
 </html>
