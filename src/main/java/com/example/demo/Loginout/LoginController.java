@@ -32,14 +32,14 @@ public class LoginController {
 
         boolean loggedIn = loginService.login(username, password);
 
-        if (loggedIn) {
-            session.setAttribute("username", username);
-            response.put("status", "success");
-            response.put("message", "Login successful.");
-        } else {
-            response.put("status", "error");
-            response.put("message", "Invalid username or password.");
-        }
+            if (loggedIn) {
+                session.setAttribute("username", username);
+                response.put("status", "success");
+                response.put("message", "Login successful.");
+            } else {
+                response.put("status", "error");
+                response.put("message", "Invalid username or password.");
+            }
 
         return response;
     }

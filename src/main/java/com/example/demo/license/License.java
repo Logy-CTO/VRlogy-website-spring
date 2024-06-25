@@ -1,9 +1,6 @@
 package com.example.demo.license;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -26,6 +23,7 @@ public class License {
         this.expirationDate = expirationDate;
     }
 
+    // getters and setters
     public int getId() {
         return id;
     }
