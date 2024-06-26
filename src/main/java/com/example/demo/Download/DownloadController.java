@@ -19,7 +19,7 @@ public class DownloadController {
 
     @GetMapping("/download")
     public ResponseEntity<Resource> downloadFile() {
-        Path path = Paths.get("src/main/resources/static/downloads/VRlogy-main.zip").toAbsolutePath().normalize();
+        Path path = Paths.get("downloads/VRlogy-main.zip").toAbsolutePath().normalize();
         logger.info("Trying to download file from path: " + path);
         Resource resource;
         try {
