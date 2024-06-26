@@ -19,16 +19,18 @@ public class DownloadController {
 
     @GetMapping("/download")
     public ResponseEntity<Resource> downloadFile() {
-        Path path = Paths.get("src/main/resources/static/downloads/VRlogy-main.zip");
+        Path path = Paths.get("src/main/resources/static/downloads/VRlogy-main.zip").toAbsolutePath().normalize();
+        logger.info("Trying to download file from path: " + path);
         Resource resource;
         try {
             resource = new UrlResource(path.toUri());
             if (!resource.exists() || !resource.isReadable()) {
-                throw new RuntimeException("Error: file not found or not readable.");
+                logger.severe("File not found or not readable: " + path);
+                return ResponseEntity.status(404).body(null);
             }
         } catch (MalformedURLException e) {
             logger.severe("Error: " + e.getMessage());
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.status(500).body(null);
         }
 
         return ResponseEntity.ok()
