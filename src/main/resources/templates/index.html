@@ -213,17 +213,42 @@
 </section>
 <!-- BANNER AREA END -->
 
-<!-- GAMES AREA START -->
+<!-- TREADMILL INTRODUCTION START -->
+<section id="treadmill-intro" class="mt-custom">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 heading">
+                <h3>VRlogy Introduction</h3>
+            </div>
+        </div>
+        <div class="row treadmill-slider">
+            <div class="col-lg-12">
+                <div class="treadmill-slider-for">
+                    <div><img src="/images/treadmill 1.jpg" alt="Treadmill 1" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 2.jpg" alt="Treadmill 2" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 3.jpg" alt="Treadmill 3" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 4.jpg" alt="Treadmill 4" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 5.jpg" alt="Treadmill 5" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 6.jpg" alt="Treadmill 6" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 7.jpg" alt="Treadmill 7" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 8.jpg" alt="Treadmill 8" class="img-fluid"></div>
+                </div>
+                <div class="treadmill-slider-nav">
+                    <div><img src="/images/treadmill 1.jpg" alt="Treadmill 1" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 2.jpg" alt="Treadmill 2" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 3.jpg" alt="Treadmill 3" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 4.jpg" alt="Treadmill 4" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 5.jpg" alt="Treadmill 5" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 6.jpg" alt="Treadmill 6" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 7.jpg" alt="Treadmill 7" class="img-fluid"></div>
+                    <div><img src="/images/treadmill 8.jpg" alt="Treadmill 8" class="img-fluid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<!-- GAMES AREA END -->
-
-<!-- ABOUT AREA START -->
-
-<!-- BRAND AREA END -->
-
-<!-- PLAYER AREA START -->
-
-<!-- PLAYER AREA END -->
+<!-- TREADMILL INTRODUCTION END -->
 
 <!-- PRODUCT AREA START -->
 <section id="product">
@@ -364,27 +389,7 @@
                     <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                 </div>
             </div>
-            <div class="col-lg-2 col-sm-4 footer-menu">
-                <h3>Site Menu</h3>
-                <a href="#">Home</a>
-                <a href="#">Tournaments</a>
-                <a href="#">About Us</a>
-                <a href="#">Reviews</a>
-            </div>
-            <div class="col-lg-2 col-sm-4 footer-menu">
-                <h3>Useful Links</h3>
-                <a href="#">Create Account</a>
-                <a href="#">Subscription</a>
-                <a href="#">Affiliate</a>
-                <a href="#">Site Condition</a>
-            </div>
-            <div class="col-lg-2 col-sm-4 footer-menu">
-                <h3>Information</h3>
-                <a href="#">FAQ</a>
-                <a href="#">Site Maps</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Contact Us</a>
-            </div>
+
         </div>
     </div>
 </section>
@@ -409,13 +414,12 @@
 </section>
 
 <!-- COPY_RIGHT AREA END -->
+
+<!-- JavaScript -->
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="path/to/ytplayer-plugin.js"></script>
-
-<!-- JavaScript -->
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/slick.min.js"></script>
@@ -424,8 +428,7 @@
 <script src="/js/counterup.min.js"></script>
 <script src="/js/waypoints.min.js"></script>
 <script src="/js/custom.js"></script>
-
-<script src="/js/jquery-3.5.1.min.js"></script>
+<script src="/js/app.js"></script>
 <script>
     $(document).ready(function() {
         var csrfToken = $('meta[name="_csrf"]').attr('content');
@@ -565,28 +568,28 @@
                                     }
 
                                     let itemHtml = `
-                                            <div class="col-lg-6 col-sm-6">
-                                                <div class="cart-items text-center">
-                                                    <img src="${imagePath}" alt="${cartItem.productName}" width="100">
-                                                    <h3>$${cartItem.amount}</h3>
-                                                    <h4>${cartItem.productName}</h4>
-                                                    <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                                <div class="col-lg-6 col-sm-6">
+                                                    <div class="cart-items text-center">
+                                                        <img src="${imagePath}" alt="${cartItem.productName}" width="100">
+                                                        <h3>$${cartItem.amount}</h3>
+                                                        <h4>${cartItem.productName}</h4>
+                                                        <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
+                                            `;
+
+                                    let itemHtml2 = `
+                                            <div class="row cart-item">
+                                                <div class="col-sm-4 col-lg-4 cart-img">
+                                                    <img src="${imagePath}" alt="${cartItem.productName}" class="img-fluid">
+                                                    <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                </div>
+                                                <div class="col-sm-8 col-lg-8">
+                                                    <h3>${cartItem.productName}</h3>
+                                                    <span>$${cartItem.amount}</span>
                                                 </div>
                                             </div>
                                         `;
-
-                                    let itemHtml2 = `
-                                        <div class="row cart-item">
-                                            <div class="col-sm-4 col-lg-4 cart-img">
-                                                <img src="${imagePath}" alt="${cartItem.productName}" class="img-fluid">
-                                                <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                            </div>
-                                            <div class="col-sm-8 col-lg-8">
-                                                <h3>${cartItem.productName}</h3>
-                                                <span>$${cartItem.amount}</span>
-                                            </div>
-                                        </div>
-                                    `;
 
                                     cartItemsContainer.append(itemHtml);
                                     cartItemsContainer2.append(itemHtml2);
@@ -719,6 +722,42 @@
                     alert("Failed to check authentication.");
                 }
             });
+        });
+
+        // vrlogy 소개 슬라이드 초기화
+        $('.treadmill-slider-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,  // 이전, 다음 버튼 제거
+            fade: false,
+            asNavFor: '.treadmill-slider-nav',
+            responsive: [
+                {
+                    breakpoint: 576,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                }
+            ]
+        });
+
+        $('.treadmill-slider-nav').slick({
+            slidesToShow: 8,
+            slidesToScroll: 1,
+            asNavFor: '.treadmill-slider-for',
+            dots: false,  // 숫자 네비게이션 제거
+            centerMode: true,
+            focusOnSelect: true,
+            responsive: [
+                {
+                    breakpoint: 576,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 1,
+                    }
+                }
+            ]
         });
     });
 </script>

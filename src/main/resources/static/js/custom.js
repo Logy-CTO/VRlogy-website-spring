@@ -1,5 +1,4 @@
 (function ($) {
-
     "use strict";
 
     //banner part js
@@ -30,30 +29,28 @@
             {
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 992,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
-
-  ]
+            }
+        ]
     });
 
-
-    //game part js
+    //match part js
     $('.match-main').slick({
         slidesToShow: 3,
         slidesToScroll: 1,
@@ -65,26 +62,25 @@
             {
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 992,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
-
-  ]
+            }
+        ]
     });
 
     //brand part js
@@ -99,26 +95,25 @@
             {
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 992,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
-
-  ]
+            }
+        ]
     });
 
     //player part js
@@ -136,26 +131,25 @@
             {
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 992,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
-
-  ]
+            }
+        ]
     });
 
     //product part js
@@ -170,26 +164,25 @@
             {
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 992,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
-
-  ]
+            }
+        ]
     });
 
     // review slide js part
@@ -219,7 +212,6 @@
         asNavFor: '.review-img-main',
     });
 
-
     //blog part js
     $('.blog-main').slick({
         slidesToShow: 3,
@@ -237,37 +229,37 @@
             {
                 breakpoint: 576,
                 settings: {
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
+            },
             {
                 breakpoint: 992,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
                 }
-    },
-
-  ]
+            }
+        ]
     });
 
     // preloader
     $(window).on('load', function () {
         $('.preloader').delay(1000).fadeOut(1000);
-
     });
+
     // Closes responsive menu when a scroll link is clicked
     $('.menu-link, .abc, .cart').on('click', function () {
         $('.custom-menubar').slideUp(600);
     });
+
     //animation scroll js
     var html_body = $('html, body');
     $('.navbar a , .backtotop a').on('click', function () {
@@ -283,17 +275,14 @@
         }
     });
 
-    // smooth scroll js 
+    // smooth scroll js
     $(window).scroll(function () {
         var scrolling = $(this).scrollTop();
         var stikey = $('.sticky-top');
 
         if (scrolling >= 100) {
-
             $(stikey).addClass("nav-bg");
-
         } else {
-
             $(stikey).removeClass("nav-bg");
         }
         if (scrolling > 180) {
@@ -302,11 +291,13 @@
             $('.backtotop').fadeOut(500);
         }
     });
-    //scorllspy js
+
+    //scrollspy js
     $('body').scrollspy({
         target: ".navbar",
         offset: 70,
     });
+
     // Search Form js
     $('.abc').on('click', function (event) {
         event.preventDefault();
@@ -329,11 +320,14 @@
     $('.hide-menu-btn').on('click', function () {
         $('.custom-menubar').slideUp(600);
     });
+
     //lightbox js
     $('.venobox').venobox();
+
     // counter part js
     $('.counter').counterUp();
+
     // video player js
     jQuery("#bgndVideo").YTPlayer();
-    
+
 }(jQuery));

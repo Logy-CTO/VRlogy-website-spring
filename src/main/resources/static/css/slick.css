@@ -117,3 +117,23 @@
 .slick-arrow.slick-hidden {
     display: none;
 }
+
+/* VRlogy Slick Slider Custom Styles */
+.treadmill-slider-for {
+    margin-bottom: 20px;
+}
+
+.treadmill-slider-nav .slick-slide {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.treadmill-slider-nav .slick-slide.slick-current {
+    opacity: 1;
+}
+
+.treadmill-slider-for .slick-slide img,
+.treadmill-slider-nav .slick-slide img {
+    display: block;
+    margin: auto;
+}

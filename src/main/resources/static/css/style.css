@@ -7,11 +7,9 @@
 */
 
 /* =============================================================================
-
 [Table of contents]
-
-0.0 Common CSS START 
-1.0 HEADER AREA START 
+0.0 Common CSS START
+1.0 HEADER AREA START
 2.0 BANNER AREA START
 3.0 GAMES AREA START
 4.0 ABOUT AREA START
@@ -20,13 +18,14 @@
 7.0 WATCH AREA START
 8.0 BRAND AREA START
 9.0 PLAYER AREA START
-10.0 PRODUCT AREA START 
-11.0 JOIN AREA START 
-12.0 BLOG AREA START 
+10.0 PRODUCT AREA START
+11.0 JOIN AREA START
+12.0 BLOG AREA START
 13.0 SUBSCRIBE AREA START
 14.0 FOOTER AREA START
 15.0 COPY_RIGHT AREA START
- 
+============================================================================= */
+
 /*===========================
 0.0 *** Common CSS START ***
 =============================*/
@@ -34,10 +33,12 @@
     margin: 0;
     padding: 0;
     outline: 0;
+    box-sizing: border-box;
 }
 
 body {
     overflow-x: hidden;
+    font-family: 'Barlow Condensed', sans-serif;
 }
 
 #darkmode {
@@ -71,16 +72,10 @@ img {
     clear: both;
 }
 
-.vbox-overlay {
-    z-index: 999999;
-}
-
-.lightboxOverlay {
-    z-index: 999999;
-}
-
+.vbox-overlay,
+.lightboxOverlay,
 .lightbox {
-    z-index: 9999999;
+    z-index: 999999;
 }
 
 h1,
@@ -97,21 +92,20 @@ ol {
 }
 
 p {
-    line-height: 27px;
+    line-height: 1.6;
 }
 
 @font-face {
     src: url(../fonts/BarlowCondensed-Bold.ttf);
-    font-family: bb;
+    font-family: 'bb';
 }
 
 @font-face {
     src: url(../fonts/BarlowCondensed-Regular.ttf);
-    font-family: br;
+    font-family: 'br';
 }
 
-
-/* preloader */
+/* Preloader */
 .preloader {
     min-height: 100vh;
     position: fixed;
@@ -121,26 +115,17 @@ p {
     bottom: 0;
     background: #191919;
     z-index: 999999999;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
 }
 
 .loader-box {
     color: #18939e;
-    -webkit-animation-duration: 3s;
     animation-duration: 3s;
     width: 44px;
     height: 44px;
     position: relative;
-    -webkit-transform: scale(1.5);
-    -ms-transform: scale(1.5);
     transform: scale(1.5);
 }
 
@@ -156,52 +141,27 @@ p {
     stroke-width: 10px;
     stroke-linejoin: round;
     stroke-linecap: round;
-}
-
-.loader-box svg rect {
     stroke-dasharray: 192 64 192 64;
     stroke-dashoffset: 0;
-    -webkit-animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
     animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-}
-
-@-webkit-keyframes pathRect {
-    25% {
-        stroke-dashoffset: 64;
-    }
-
-    50% {
-        stroke-dashoffset: 128;
-    }
-
-    75% {
-        stroke-dashoffset: 192;
-    }
-
-    100% {
-        stroke-dashoffset: 256;
-    }
 }
 
 @keyframes pathRect {
     25% {
         stroke-dashoffset: 64;
     }
-
     50% {
         stroke-dashoffset: 128;
     }
-
     75% {
         stroke-dashoffset: 192;
     }
-
     100% {
         stroke-dashoffset: 256;
     }
 }
 
-/* model */
+/* Modal */
 .modal {
     z-index: 99999999;
     background: rgba(20, 20, 20, 0.8);
@@ -209,7 +169,7 @@ p {
 
 .modal-title {
     font-size: 32px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     position: relative;
     padding-left: 25px;
@@ -263,7 +223,7 @@ p {
 
 .cart-item h3 {
     font-size: 29px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     padding-bottom: 15px;
     padding-top: 17px;
@@ -271,7 +231,7 @@ p {
 
 .cart-item span {
     font-size: 19px;
-    font-family: br;
+    font-family: 'br';
     color: #787878;
 }
 
@@ -298,27 +258,24 @@ p {
 }
 
 .contact-box .form-control {
-    font-family: br;
+    font-family: 'br';
     font-size: 16px;
     border: 2px solid #313131;
     background: transparent;
     margin-top: 15px;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
 .contact-box .form-control:hover,
 .contact-box .form-control:focus {
-    -webkit-box-shadow: none;
     box-shadow: none;
     color: white;
 }
 
-/* Login start */
+/* Login */
 .logoss {
     font-size: 36px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     letter-spacing: 6px;
 }
@@ -339,14 +296,8 @@ p {
     z-index: 999;
     opacity: 1;
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     padding: 30px 0;
     background: #141414;
@@ -364,13 +315,13 @@ p {
 .login-12 .login-inner-form .details p {
     color: #787878;
     font-size: 15px;
-    font-family: br;
+    font-family: 'br';
 }
 
 .login-12 .login-inner-form .details p a {
     margin-left: 3px;
     color: #fff;
-    font-family: bb;
+    font-family: 'bb';
 }
 
 .login-12 .login-inner-form .details p {
@@ -426,7 +377,7 @@ p {
 .login-12 .login-inner-form h3 {
     margin: 0 0 25px;
     font-size: 25px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
 }
 
@@ -439,13 +390,11 @@ p {
     width: 100%;
     padding: 10px 20px;
     font-size: 15px;
-    outline: 0;
     font-weight: 500;
     color: #7c7c7c;
     height: 45px;
     border-radius: 0;
     border: 1px solid #313131;
-    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .06);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .06);
     background: #313131;
 }
@@ -476,7 +425,7 @@ p {
     color: #787878;
     margin-bottom: 30px;
     padding-top: 20px;
-    font-family: br;
+    font-family: 'br';
 }
 
 .login-12 .bg-img .btn-sm {
@@ -495,8 +444,6 @@ p {
     color: #fff;
     border-radius: 3px;
     display: inline-block;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
@@ -516,21 +463,19 @@ input[type=radio] {
 
 .login-12 .login-inner-form .btn-theme.focus,
 .btn-theme:focus {
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
 .login-12 .login-inner-form .btn-theme {
     background: #18939e;
     font-size: 18px;
-    font-family: br;
+    font-family: 'br';
     border: none;
     color: #fff;
 }
 
 .login-12 .login-inner-form .btn-theme:hover {
     background: #bf000a;
-    -webkit-box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
 }
 
@@ -605,23 +550,130 @@ input[type=radio] {
     float: right;
 }
 
-/** MEDIA **/
+/* Responsive Styles */
 @media (max-width: 992px) {
-    .login-12 .none-992 {
-        display: none;
+    .modal-title,
+    .logoss,
+    .login-12 .login-inner-form h3,
+    .inner-page #inner-banner h3,
+    .game-item a,
+    .game-box h3,
+    .about-txt h3,
+    .counter-item h3,
+    .live-match-item .match-text h3,
+    .vs-txt h3,
+    .player-txt h3,
+    .product-item h3,
+    .join-txt h3,
+    .blog-txt a,
+    .footer-logo a,
+    .footer-menu h3,
+    .subscribe-txt h3 {
+        font-size: 1.5rem;
     }
-
-    .login-12 .pad-0 {
-        padding: 0;
+    .game-item a,
+    .game-box span,
+    .about-txt span,
+    .about-txt p,
+    .counter-item p,
+    .match-btn,
+    .product-btn,
+    .sale span,
+    .join-txt span,
+    .blog-txt span,
+    .footer-logo p,
+    .footer-menu a,
+    .footer-social a i,
+    .copy-right-txt p {
+        font-size: 0.9rem;
     }
-
-    .login-12 .login-box-12 {
-        margin: 0 auto;
-        max-width: 400px;
+    .blog-txt a {
+        font-size: 20px;
+        line-height: 30px;
     }
+}
 
-    .login-12 .login-inner-form .details {
-        padding: 30px;
+@media (max-width: 768px) {
+    .modal-title,
+    .logoss,
+    .login-12 .login-inner-form h3,
+    .inner-page #inner-banner h3,
+    .game-item a,
+    .game-box h3,
+    .about-txt h3,
+    .counter-item h3,
+    .live-match-item .match-text h3,
+    .vs-txt h3,
+    .player-txt h3,
+    .product-item h3,
+    .join-txt h3,
+    .blog-txt a,
+    .footer-logo a,
+    .footer-menu h3,
+    .subscribe-txt h3 {
+        font-size: 1.2rem;
+    }
+    .game-item a,
+    .game-box span,
+    .about-txt span,
+    .about-txt p,
+    .counter-item p,
+    .match-btn,
+    .product-btn,
+    .sale span,
+    .join-txt span,
+    .blog-txt span,
+    .footer-logo p,
+    .footer-menu a,
+    .footer-social a i,
+    .copy-right-txt p {
+        font-size: 0.8rem;
+    }
+    .blog-txt a {
+        font-size: 18px;
+        line-height: 25px;
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-title,
+    .logoss,
+    .login-12 .login-inner-form h3,
+    .inner-page #inner-banner h3,
+    .game-item a,
+    .game-box h3,
+    .about-txt h3,
+    .counter-item h3,
+    .live-match-item .match-text h3,
+    .vs-txt h3,
+    .player-txt h3,
+    .product-item h3,
+    .join-txt h3,
+    .blog-txt a,
+    .footer-logo a,
+    .footer-menu h3,
+    .subscribe-txt h3 {
+        font-size: 1rem;
+    }
+    .game-item a,
+    .game-box span,
+    .about-txt span,
+    .about-txt p,
+    .counter-item p,
+    .match-btn,
+    .product-btn,
+    .sale span,
+    .join-txt span,
+    .blog-txt span,
+    .footer-logo p,
+    .footer-menu a,
+    .footer-social a i,
+    .copy-right-txt p {
+        font-size: 0.7rem;
+    }
+    .blog-txt a {
+        font-size: 15px;
+        line-height: 20px;
     }
 }
 
@@ -635,29 +687,15 @@ input[type=radio] {
 
 /* version 3*/
 .index3 #banner {
-    background: url(../images/banner-bg.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url(../images/banner-bg.jpg) center no-repeat;
     background-size: cover;
-    -webkit-animation: shrink 5s infinite alternate;
     animation: shrink 5s infinite alternate;
-}
-
-@-webkit-keyframes shrink {
-    0% {
-        background-size: 110% 110%;
-    }
-
-    100% {
-        background-size: 100% 100%;
-    }
 }
 
 @keyframes shrink {
     0% {
         background-size: 110% 110%;
     }
-
     100% {
         background-size: 100% 100%;
     }
@@ -695,7 +733,6 @@ input[type=radio] {
     width: 100%;
     height: 100%;
     background: rgba(25, 25, 25, .94);
-
 }
 
 /* inner pages css */
@@ -706,20 +743,20 @@ input[type=radio] {
 
 .inner-page #inner-banner h3 {
     font-size: 52px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     padding-bottom: 18px;
 }
 
 .inner-page #inner-banner a {
     color: #18939e;
-    font-family: bb;
+    font-family: 'bb';
     font-size: 19px;
 }
 
 .inner-page #inner-banner span {
     color: #787878;
-    font-family: br;
+    font-family: 'br';
     font-size: 19px;
 }
 
@@ -737,12 +774,12 @@ input[type=radio] {
 .inner-page .cart-items h3 {
     font-size: 38px;
     color: white;
-    font-family: bb;
+    font-family: 'bb';
 }
 
 .inner-page .cart-items h4 {
     font-size: 25px;
-    font-family: br;
+    font-family: 'br';
     color: #787878;
     text-transform: capitalize;
     padding: 12px 0 12px;
@@ -763,7 +800,7 @@ input[type=radio] {
     height: 59px;
     width: 100%;
     font-size: 19px;
-    font-family: bb;
+    font-family: 'bb';
     background: #18939e;
     border: 1px solid #18939e;
     margin-top: 15px;
@@ -787,7 +824,7 @@ input[type=radio] {
 .inner-page .checkout-box h3,
 .inner-page .checkout-box h4 {
     font-size: 21px;
-    font-family: br;
+    font-family: 'br';
 }
 
 .inner-page .checkout-box h3 {
@@ -813,9 +850,6 @@ input[type=radio] {
     position: fixed;
     width: 100%;
     z-index: 999999;
-    -weebkit-transition: all linear .3s;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
     padding-top: 25px;
     background: transparent !important;
@@ -824,7 +858,7 @@ input[type=radio] {
 .navbar-light .navbar-brand {
     font-size: 28px;
     color: white;
-    font-family: bb;
+    font-family: 'bb';
     position: relative;
     letter-spacing: 8px;
     padding-top: 2px;
@@ -881,7 +915,7 @@ input[type=radio] {
     background: #18939e;
     color: white;
     font-size: 13px;
-    font-family: bb;
+    font-family: 'bb';
     left: 47px;
     top: 0;
 }
@@ -893,7 +927,6 @@ input[type=radio] {
 .nav-bg {
     background: #141414 !important;
     padding: 25px 0;
-    -webkit-box-shadow: 0 31px 35px rgba(0, 0, 0, .1);
     box-shadow: 0 31px 35px rgba(0, 0, 0, .1);
 }
 
@@ -909,19 +942,13 @@ input[type=radio] {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
-    -webkit-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
-    -webkit-transform: translate(0px, -100%) scale(0, 0);
-    -ms-transform: translate(0px, -100%) scale(0, 0);
     transform: translate(0px, -100%) scale(0, 0);
     opacity: 0;
     z-index: 99999999;
 }
 
 .search.open {
-    -webkit-transform: translate(0px, 0px) scale(1, 1);
-    -ms-transform: translate(0px, 0px) scale(1, 1);
     transform: translate(0px, 0px) scale(1, 1);
     opacity: 1;
 }
@@ -947,7 +974,7 @@ input[type=radio] {
     position: absolute;
     top: 50%;
     left: 50%;
-    font-family: bb;
+    font-family: 'bb';
     margin-top: 61px;
     margin-left: -45px;
     background: #18939e;
@@ -994,8 +1021,6 @@ input[type=radio] {
     position: absolute;
     top: 50%;
     left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
 
@@ -1006,13 +1031,10 @@ input[type=radio] {
 
 .custom-menubar .menu-link {
     font-size: 49px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     text-transform: uppercase;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
-
 }
 
 .custom-menubar .menu-link:hover {
@@ -1066,7 +1088,7 @@ input[type=radio] {
     background: #18939e;
     color: white;
     font-size: 13px;
-    font-family: bb;
+    font-family: 'bb';
     left: 30px;
     top: 0;
 }
@@ -1079,7 +1101,6 @@ input[type=radio] {
     background: #191919;
     overflow-y: hidden;
     position: relative;
-
 }
 
 .backtotop {
@@ -1099,10 +1120,7 @@ input[type=radio] {
     height: 60px;
     background: rgba(29, 29, 29, 0.8);
     border-radius: 50%;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
-
 }
 
 .backtotop:hover {
@@ -1119,7 +1137,7 @@ input[type=radio] {
 }
 
 .banner-txt h3 {
-    font-family: bb;
+    font-family: 'bb';
     font-size: 100px;
     -webkit-text-stroke-color: #18939e;
     -webkit-text-fill-color: #FFF;
@@ -1128,7 +1146,7 @@ input[type=radio] {
 }
 
 .banner-txt p {
-    font-family: br;
+    font-family: 'br';
     font-size: 19px;
     color: #787878;
     padding: 18px 40px 48px 0;
@@ -1138,15 +1156,12 @@ input[type=radio] {
     padding: 15px 20px;
     color: white;
     font-size: 18px;
-    font-family: bb;
+    font-family: 'bb';
     background: #18939e;
     position: relative;
     overflow: hidden;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
     border-radius: 50px;
-
 }
 
 .main-btn:hover {
@@ -1199,8 +1214,6 @@ input[type=radio] {
     bottom: 0;
     left: 120px;
     font-size: 24px;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
     z-index: 11;
 }
@@ -1214,15 +1227,12 @@ input[type=radio] {
     position: absolute;
     left: -100px;
     top: 50%;
-    -webkit-transform: translateY(-50%)rotate(90deg);
-    -ms-transform: translateY(-50%)rotate(90deg);
-    transform: translateY(-50%)rotate(90deg);
-
+    transform: translateY(-50%) rotate(90deg);
 }
 
 .follow-us span {
     color: #787878;
-    font-family: br;
+    font-family: 'br';
     font-size: 18px;
     padding-right: 70px;
     position: relative;
@@ -1242,14 +1252,10 @@ input[type=radio] {
     font-size: 18px;
     color: white;
     margin-right: 15px;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
 .follow-us a i:hover {
-    -webkit-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
 }
 
@@ -1269,8 +1275,6 @@ input[type=radio] {
     text-align: center;
     border-radius: 50%;
     margin: 0 10px;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
@@ -1308,7 +1312,6 @@ input[type=radio] {
     width: 20px;
     height: 2px;
     background: rgba(229, 9, 20, 0.5);
-    -webkit-animation: lineshine 10s infinite alternate;
     animation: lineshine 10s infinite alternate;
     z-index: 1;
 }
@@ -1320,27 +1323,24 @@ input[type=radio] {
     width: 20px;
     height: 2px;
     background: rgba(229, 9, 20, 0.5);
-    -webkit-animation: lineshine2 10s infinite alternate;
     animation: lineshine2 10s infinite alternate;
     z-index: 1;
 }
 
-@-webkit-keyframes lineshine {
-    form {
+@keyframes lineshine {
+    0% {
         left: 0;
     }
-
-    to {
+    100% {
         left: 95%;
     }
 }
 
-@-webkit-keyframes lineshine2 {
-    form {
+@keyframes lineshine2 {
+    0% {
         right: 0;
     }
-
-    to {
+    100% {
         right: 95%;
     }
 }
@@ -1352,7 +1352,7 @@ input[type=radio] {
 .game-item a {
     padding: 30px 0 4px;
     font-size: 25px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     display: block;
 }
@@ -1365,7 +1365,7 @@ input[type=radio] {
 
 .game-box span {
     font-size: 19px;
-    font-family: br;
+    font-family: 'br';
     color: #18939e;
     text-transform: uppercase;
     letter-spacing: 6px;
@@ -1373,14 +1373,14 @@ input[type=radio] {
 
 .game-box h3 {
     font-size: 38px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     text-transform: uppercase;
     padding: 7px 0 18px;
 }
 
 .game-box p {
-    font-family: br;
+    font-family: 'br';
     font-size: 19px;
     color: #787878;
     padding-bottom: 48px;
@@ -1398,11 +1398,7 @@ input[type=radio] {
     background: rgba(229, 9, 20, 0.7);
     left: 0;
     top: 0;
-    -webkit-transform: scale(0);
-    -ms-transform: scale(0);
     transform: scale(0);
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
@@ -1410,8 +1406,6 @@ input[type=radio] {
     position: absolute;
     top: 45%;
     left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
 
@@ -1421,8 +1415,6 @@ input[type=radio] {
 }
 
 .game-img:hover .lightbox-overlay {
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
     transform: scale(1);
 }
 
@@ -1436,7 +1428,7 @@ input[type=radio] {
 
 .heading h3 {
     font-size: 110px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     -webkit-text-stroke-color: #18939e;
     -webkit-text-fill-color: #FFF;
@@ -1467,7 +1459,7 @@ input[type=radio] {
 
 .about-txt span {
     font-size: 19px;
-    font-family: br;
+    font-family: 'br';
     color: #18939e;
     text-transform: uppercase;
     letter-spacing: 6px;
@@ -1475,7 +1467,7 @@ input[type=radio] {
 
 .about-txt h3 {
     font-size: 38px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     text-transform: uppercase;
     padding: 5px 0 25px;
@@ -1487,7 +1479,7 @@ input[type=radio] {
 }
 
 .about-txt p {
-    font-family: br;
+    font-family: 'br';
     font-size: 19px;
     color: #787878;
     padding-bottom: 35px;
@@ -1499,17 +1491,12 @@ input[type=radio] {
 }
 
 .about-img img {
-    -webkit-clip-path: polygon(0 0, 89% 0, 100% 10%, 100% 100%, 9% 100%, 0 92%);
     clip-path: polygon(0 0, 89% 0, 100% 10%, 100% 100%, 9% 100%, 0 92%);
-    -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
 .about-img:hover img {
-    -webkit-filter: grayscale(0);
     filter: grayscale(0);
 }
 
@@ -1521,8 +1508,6 @@ input[type=radio] {
     background: #18939e;
     left: 11px;
     top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     z-index: -1;
 }
@@ -1541,12 +1526,12 @@ input[type=radio] {
 
 .about-txt-overlay h3 {
     font-size: 80px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
 }
 
 .about-txt-overlay span {
-    font-family: br;
+    font-family: 'br';
     color: white;
 }
 
@@ -1574,7 +1559,7 @@ input[type=radio] {
 
 .counter-item h3 {
     font-size: 50px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     padding-bottom: 6px;
     display: inline-block;
@@ -1582,7 +1567,7 @@ input[type=radio] {
 
 .counter-item span {
     font-size: 50px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
 }
 
@@ -1591,7 +1576,7 @@ input[type=radio] {
 }
 
 .counter-item p {
-    font-family: br;
+    font-family: 'br';
     font-size: 19px;
     color: #787878;
 }
@@ -1616,8 +1601,6 @@ input[type=radio] {
     background: #191919;
     padding: 30px;
     border-radius: 12px;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
@@ -1634,10 +1617,8 @@ input[type=radio] {
 
 .match-text h3 {
     font-size: 25px;
-    font-family: bb;
+    font-family: 'bb';
     color: #fff;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
@@ -1650,11 +1631,9 @@ input[type=radio] {
 }
 
 .match-btn {
-    font-family: bb;
+    font-family: 'bb';
     color: #18939e;
     text-transform: uppercase;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
@@ -1662,8 +1641,6 @@ input[type=radio] {
     font-size: 9px;
     color: #18939e;
     padding-left: 3px;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
@@ -1677,7 +1654,7 @@ input[type=radio] {
 
 .pre-match h3 {
     font-size: 22px;
-    font-family: br;
+    font-family: 'br';
     color: #787878;
     text-transform: uppercase;
     letter-spacing: 12px;
@@ -1701,7 +1678,7 @@ input[type=radio] {
 
 .vs-txt h3 {
     font-size: 35px;
-    font-family: bb;
+    font-family: 'bb';
     color: white;
     padding-top: 24px;
 }
@@ -1726,8 +1703,6 @@ input[type=radio] {
     position: absolute;
     left: 50%;
     top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     z-index: 1;
 }
@@ -1741,8 +1716,6 @@ input[type=radio] {
     text-align: center;
     line-height: 90px;
     font-size: 21px;
-    -webkit-transition: all linear .3s;
-    -o-transition: all linear .3s;
     transition: all linear .3s;
 }
 
@@ -2016,7 +1989,7 @@ input[type=radio] {
 12.0 *** BLOG AREA START ***
 =============================*/
 #blog {
-    padding: 80px 0;
+    padding: 0px 0;
     position: relative;
 }
 
@@ -2030,10 +2003,10 @@ input[type=radio] {
 }
 
 .blog-txt a {
-    font-size: 25px;
+    font-size: 15px;
     font-family: bb;
     color: white;
-    line-height: 37px;
+    line-height: 20px;
     padding-top: 8px;
     display: block;
 }
@@ -2108,7 +2081,7 @@ input[type=radio] {
 }
 
 .subscribe-txt h3 {
-    font-size: 38px;
+    font-size: 10px;
     font-family: bb;
     color: white;
     text-transform: uppercase;
@@ -2230,4 +2203,70 @@ input[type=radio] {
 .copy-right-txt p a {
     font-family: bb;
     color: white;
+}
+
+.mt-custom {
+    margin-top: 6rem; /* 원하는 크기로 설정 */
+}
+
+/* Custom padding for treadmill-intro section */
+.treadmill-slider {
+    padding-top: 70px;
+}
+
+/* Custom styles for the VRlogy slider */
+.treadmill-slider-for {
+    margin-bottom: 20px;
+}
+
+.treadmill-slider-for .slick-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+
+.treadmill-slider-for .slick-slide img {
+    max-width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+}
+
+.treadmill-slider-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap; /* Added for better responsiveness */
+}
+
+.treadmill-slider-nav .slick-slide {
+    cursor: pointer;
+    margin: 0 5px;
+    opacity: 0.6;
+}
+
+.treadmill-slider-nav .slick-slide.slick-current {
+    opacity: 1;
+}
+
+.treadmill-slider-nav .slick-slide img {
+    max-width: 100px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Hide slick prev and next buttons */
+.slick-prev, .slick-next, .slick-dots {
+    display: none !important;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 576px) {
+    .treadmill-slider-for .slick-slide {
+        margin: 0;
+    }
+
+    .treadmill-slider-nav .slick-slide img {
+        max-width: 70px;
+    }
 }
