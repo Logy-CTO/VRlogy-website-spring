@@ -53,7 +53,7 @@
 
             <!-- 생략 -->
             <div class="modal-footer">
-                <a href="cart" class="main-btn model-btn" id="checkoutButton">Checkout $0</a>
+                <a href="cart" class="main-btn model-btn" id="checkoutButton">Checkout 0KRW</a>
             </div>
         </div>
     </div>
@@ -199,7 +199,7 @@
                                     <h3>Subtotal</h3>
                                 </div>
                                 <div class="col-4 col-lg-4 col-sm-4 text-right">
-                                    <h4 id="subtotal-value">$0.00</h4>
+                                    <h4 id="subtotal-value">0.00KRW</h4>
                                 </div>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
                                     <h3>Total</h3>
                                 </div>
                                 <div class="col-4 col-lg-4 col-sm-4 text-right">
-                                    <h4 id="total-value">$0.00</h4>
+                                    <h4 id="total-value">0.00KRW</h4>
                                 </div>
                             </div>
                         </div>
@@ -259,48 +259,62 @@
                 <div class="product-main">
                     <div class="col-lg-3 text-center">
                         <div class="product-item">
-                            <h3>$9.8</h3>
+                            <h3>1,800KRW</h3>
                             <img src="/images/KakaoTalk_Photo_2023-09-07-23-39-23.png" alt="product-img" class="img-fluid">
                             <h4>VRlogy Program</h4>
-                            <a href="#" class="product-btn addToCartButton" data-product-name="VRlogy Program" data-amount="9.8">Add to Cart</a>
+                            <!-- View Details Button -->
+                            <a href="#" class="product-btn viewDetailsButton" data-product-name="VRlogy Program" data-toggle="modal" data-target="#productDetailModal">View Details</a>
+                            <br>
+                            <!-- Add to Cart Button -->
+                            <a href="#" class="product-btn addToCartButton" data-product-name="VRlogy Program" data-amount="1800">Add to Cart</a>
                         </div>
                     </div>
                     <div class="col-lg-3 text-center">
                         <div class="product-item">
-                            <h3>$439</h3>
-                            <div class="sale">
-                                <span>Sale</span>
-                            </div>
+                            <h3>1,390,000KRW</h3>
                             <img src="/images/KATWALKC2.jpg" alt="product-img" class="img-fluid">
                             <h4>VRlogy treadmill</h4>
-                            <a href="#" class="product-btn addToCartButton" data-product-name="VRlogy treadmill" data-amount="439">Add to Cart</a>
+                            <!-- View Details Button -->
+                            <a href="#" class="product-btn viewDetailsButton" data-product-name="VRlogy treadmill" data-toggle="modal" data-target="#productDetailModal">View Details</a>
+                            <br>
+                            <!-- Add to Cart Button -->
+                            <a href="#" class="product-btn addToCartButton" data-product-name="VRlogy treadmill" data-amount="1390000">Add to Cart</a>
                         </div>
                     </div>
                     <div class="col-lg-3 text-center">
                         <div class="product-item">
-                            <h3>$299</h3>
+                            <h3>349,000KRW</h3>
                             <img src="/images/30612946625.20230130153345.jpg" alt="product-img" class="img-fluid">
                             <h4>Oculus Quest 2</h4>
-                            <a href="#" class="product-btn addToCartButton" data-product-name="Oculus Quest 2" data-amount="299">Add to Cart</a>
+                            <!-- View Details Button -->
+                            <a href="#" class="product-btn viewDetailsButton" data-product-name="Oculus Quest 2" data-toggle="modal" data-target="#productDetailModal">View Details</a>
+                            <br>
+                            <!-- Add to Cart Button -->
+                            <a href="#" class="product-btn addToCartButton" data-product-name="Oculus Quest 2" data-amount="349000">Add to Cart</a>
                         </div>
                     </div>
                     <div class="col-lg-3 text-center">
                         <div class="product-item">
-                            <h3>$458</h3>
-                            <div class="sale">
-                                <span>Sale</span>
-                            </div>
+                            <h3>799,000KRW</h3>
                             <img src="/images/35059704619.20221216134925.jpg" alt="product-img" class="img-fluid">
                             <h4>PICO 4</h4>
-                            <a href="#" class="product-btn addToCartButton" data-product-name="PICO 4" data-amount="458">Add to Cart</a>
+                            <!-- View Details Button -->
+                            <a href="#" class="product-btn viewDetailsButton" data-product-name="PICO 4" data-toggle="modal" data-target="#productDetailModal">View Details</a>
+                            <br>
+                            <!-- Add to Cart Button -->
+                            <a href="#" class="product-btn addToCartButton" data-product-name="PICO 4" data-amount="799000">Add to Cart</a>
                         </div>
                     </div>
                     <div class="col-lg-3 text-center">
                         <div class="product-item">
-                            <h3>$47</h3>
+                            <h3>139,000KRW</h3>
                             <img src="/images/16646684053.20181217180044.jpg" alt="product-img" class="img-fluid">
-                            <h4>C920 PRO</h4>
-                            <a href="#" class="product-btn addToCartButton" data-product-name="C920 PRO" data-amount="47">Add to Cart</a>
+                            <h4>C920 PRO Webcam</h4>
+                            <!-- View Details Button -->
+                            <a href="#" class="product-btn viewDetailsButton" data-product-name="C920 PRO" data-toggle="modal" data-target="#productDetailModal">View Details</a>
+                            <br>
+                            <!-- Add to Cart Button -->
+                            <a href="#" class="product-btn addToCartButton" data-product-name="C920 PRO" data-amount="139000">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -309,6 +323,26 @@
     </div>
 </section>
 <!-- PRODUCT AREA END -->
+
+<!-- Product Detail Modal -->
+<div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productDetailTitle">Product Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="productDetailContent">
+                    <!-- Product details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Product Detail Modal End -->
 
 <!-- SUBSCRIBE AREA START -->
 
@@ -319,18 +353,174 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 footer-logo">
-                <a href="/">Logy<b>.</b></a>
-                <p>Step into the Future with logy: Elevating Reality through VR Treadmills and Software Solutions</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fa fa-twitch" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                </div>
+                <a href="/" style="color: gray;">Logy<b>.</b></a>
+                <p style="color: gray;">Step into the Future with logy: Elevating Reality through VR Treadmills and Software Solutions</p>
             </div>
-
+        </div>
+        <div class="row">
+            <div class="col-lg-12 footer-info">
+                <p style="color: gray;">회사명: 로지 | 대표: 홍택수 | 사업자번호: 888-08-02952</p>
+                <p style="color: gray;">고객센터: 010-3149-5281 | 주소: 충청남도 서산시 해미면 한서1로 46 산학협력관 지하 1층 멀티라운지</p>
+                <p style="color: gray;">
+                    <br>
+                    <a href="#" data-toggle="modal" data-target="#termsModal" style="color: gray;">이용약관</a> |
+                    <a href="#" data-toggle="modal" data-target="#privacyModal" style="color: gray;">개인정보처리방침</a> |
+                    <a href="#" data-toggle="modal" data-target="#refundModal" style="color: gray;">환불정책</a>
+                </p>
+            </div>
         </div>
     </div>
 </section>
+
+<!-- 이용약관 Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel" style="color: gray;">이용약관</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll; max-height: 400px; color: gray;">
+                <h4 style="color: gray;">제1조 목적</h4>
+                <p>본 약관은 로지(이하 "회사")가 제공하는 서비스의 이용과 관련하여 회사와 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">제2조 정의</h4>
+                <p>1. "서비스"란 회사가 제공하는 모든 웹사이트, 애플리케이션, 기타 서비스를 의미합니다.<br>2. "이용자"란 본 약관에 따라 회사가 제공하는 서비스를 이용하는 회원 및 비회원을 말합니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">제3조 약관의 명시, 효력 및 변경</h4>
+                <p>1. 회사는 본 약관의 내용을 이용자가 알 수 있도록 서비스 화면에 게시합니다.<br>2. 회사는 관련 법령을 위배하지 않는 범위에서 본 약관을 변경할 수 있으며, 변경된 약관은 서비스 화면에 공지합니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">제4조 서비스 이용</h4>
+                <p>1. 이용자는 본 약관에 동의함으로써 회사가 제공하는 서비스를 이용할 수 있습니다.<br>2. 서비스는 연중무휴 24시간 제공함을 원칙으로 하나, 시스템 점검 및 기타 기술적 문제로 인해 일시 중단될 수 있습니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">제5조 개인정보 보호</h4>
+                <p>회사는 이용자의 개인정보를 관련 법령 및 개인정보처리방침에 따라 보호하며, 이에 관한 사항은 별도의 개인정보처리방침에 따릅니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">제6조 이용자의 의무</h4>
+                <p>이용자는 다음 각 호에 해당하는 행위를 해서는 안 됩니다:<br>1. 타인의 개인정보를 도용하는 행위<br>2. 회사의 지적 재산권 침해<br>3. 법령에 위반되는 행위</p>
+
+                <br>
+
+                <h4 style="color: gray;">제7조 서비스 이용의 제한 및 종료</h4>
+                <p>회사는 이용자가 본 약관을 위반할 경우 서비스 이용을 제한하거나 중단할 수 있으며, 이로 인한 책임은 이용자에게 있습니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">제8조 면책사항</h4>
+                <p>회사는 천재지변, 전쟁, 파업 등 불가항력적인 상황으로 인한 서비스 중단에 대해 책임을 지지 않습니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">제9조 기타</h4>
+                <p>본 약관은 대한민국 법률에 따라 해석되며, 분쟁이 발생할 경우 회사의 본사 소재지를 관할하는 법원을 관할 법원으로 합니다.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 개인정보처리방침 Modal -->
+<div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-labelledby="privacyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="privacyModalLabel" style="color: gray;">개인정보처리방침</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll; max-height: 400px; color: gray;">
+                <h4 style="color: gray;">1. 개인정보 수집 항목</h4>
+                <p>회사는 회원가입, 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.</p>
+
+                <br>
+
+                <ul style="color: gray;">
+                    <li>수집 항목: 이름, 이메일, 주소, 전화번호, 결제 정보 등</li>
+                </ul>
+
+                <br>
+
+                <h4 style="color: gray;">2. 개인정보 수집 목적</h4>
+                <p>회사는 다음과 같은 목적을 위해 개인정보를 수집합니다:<br>1. 서비스 제공 및 본인 인증<br>2. 고객 관리 및 문의 처리<br>3. 마케팅 및 광고에 활용</p>
+
+                <br>
+
+                <h4 style="color: gray;">3. 개인정보 보유 및 이용기간</h4>
+                <p>회사는 이용자의 개인정보를 회원탈퇴 후 지체 없이 파기하며, 다만 관련 법령에 의해 일정 기간 보관이 필요할 경우 그 기간 동안 보관합니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">4. 개인정보의 제3자 제공</h4>
+                <p>회사는 이용자의 동의 없이 개인정보를 외부에 제공하지 않으며, 법령에 의한 경우에 한해 제3자에게 제공할 수 있습니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">5. 개인정보의 안전성 확보 조치</h4>
+                <p>회사는 이용자의 개인정보를 보호하기 위해 다음과 같은 조치를 취하고 있습니다:<br>1. 개인정보 암호화<br>2. 접근 통제 및 관리<br>3. 내부 감사 및 교육</p>
+
+                <br>
+
+                <h4 style="color: gray;">6. 이용자의 권리</h4>
+                <p>이용자는 언제든지 자신의 개인정보를 조회, 수정 및 삭제 요청할 수 있으며, 회사는 이에 신속하게 대응합니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">7. 개인정보 보호 책임자</h4>
+                <p>회사는 이용자의 개인정보를 보호하고 관련 불만을 처리하기 위해 개인정보 보호 책임자를 지정하고 있습니다. 자세한 사항은 회사의 홈페이지를 참조하십시오.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 환불정책 Modal -->
+<div class="modal fade" id="refundModal" tabindex="-1" role="dialog" aria-labelledby="refundModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="refundModalLabel" style="color: gray;">환불정책</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll; max-height: 400px; color: gray;">
+                <h4 style="color: gray;">1. 환불 가능 조건</h4>
+                <p>다음의 경우 환불이 가능합니다:<br>1. 제품 불량 및 결함으로 인한 환불<br>2. 제품 미사용 및 구매 후 7일 이내 요청 시</p>
+
+                <br>
+
+                <h4 style="color: gray;">2. 환불 불가 조건</h4>
+                <p>다음의 경우 환불이 불가합니다:<br>1. 소비자의 과실로 인해 제품이 손상된 경우<br>2. 구매 후 7일이 경과한 경우</p>
+
+                <br>
+
+                <h4 style="color: gray;">3. 환불 절차</h4>
+                <p>환불 요청은 고객센터를 통해 접수되며, 승인된 경우 7일 이내에 결제 수단으로 환불이 처리됩니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">4. 제품 교환</h4>
+                <p>제품에 결함이 있는 경우, 구매일로부터 30일 이내에 교환이 가능합니다. 교환을 원하실 경우 고객센터로 문의해주시기 바랍니다.</p>
+
+                <br>
+
+                <h4 style="color: gray;">5. 환불 관련 문의</h4>
+                <p>환불 관련 문의사항은 고객센터로 연락 주시면 신속하게 처리해드리겠습니다. 고객센터 연락처: 010-3149-5271</p>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- FOOTER AREA END -->
 
 <!-- COPY_RIGHT AREA START -->
@@ -377,30 +567,33 @@
             success: function(response) {
                 if (response.authenticated) {
                     let currentMemberId = response.username;
-                    console.log("Current Member ID: ", currentMemberId);
 
                     $.ajax({
                         url: '/get-cart-items',
                         method: 'GET',
                         data: { memberId: currentMemberId },
                         success: function(response) {
-                            console.log("Cart Items: ", response);
-
                             let productNames = response.map(cartItem => cartItem.productName);
                             allProductNames = productNames.join(', ');
+
                             let cartItemsContainer = $('#cartItemsContainer');
                             let cartItemsContainer2 = $('#cartItemsContainer2');
                             cartItemsContainer.empty();
                             cartItemsContainer2.empty();
                             let totalAmount = response.reduce((sum, cartItem) => sum + parseFloat(cartItem.amount), 0);
-                            $('#subtotal-value').text(`$${totalAmount.toFixed(2)}`);
-                            $('#total-value').text(`$${totalAmount.toFixed(2)}`);
-                            $('#checkoutButton').text(`Checkout $${totalAmount.toFixed(2)}`);
+
+                            // 소수점 없애고 3자리마다 쉼표 추가
+                            let formattedTotalAmount = totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                            $('#subtotal-value').text(`${formattedTotalAmount}KRW`);
+                            $('#total-value').text(`${formattedTotalAmount}KRW`);
+                            $('#checkoutButton').text(`Checkout ${formattedTotalAmount}KRW`);
                             $('#cartItemCount').text(response.length);
                             $('#cartItemCountNavbar').text(response.length);
+
                             response.forEach(cartItem => {
                                 let imagePath = "";
-                                switch(cartItem.productName) {
+                                switch (cartItem.productName) {
                                     case "PICO 4":
                                         imagePath = "/images/35059704619.20221216134925.jpg";
                                         break;
@@ -421,35 +614,39 @@
                                         break;
                                 }
 
+                                // 각 상품의 금액에 쉼표 추가
+                                let formattedAmount = parseInt(cartItem.amount).toLocaleString('ko-KR');
+
                                 let itemHtml = `
-                                <div class="col-lg-6 col-sm-6">
-                                    <div class="cart-items text-center">
-                                        <img src="${imagePath}" alt="${cartItem.productName}" width="100">
-                                        <h3>$${cartItem.amount}</h3>
-                                        <h4>${cartItem.productName}</h4>
-                                        <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                                `;
+                                        <div class="col-lg-6 col-sm-6">
+                                            <div class="cart-items text-center">
+                                                <img src="${imagePath}" alt="${cartItem.productName}" width="100">
+                                                <h3>${formattedAmount}KRW</h3> <!-- 금액에 쉼표 추가된 부분 -->
+                                                <h4>${cartItem.productName}</h4>
+                                                <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    `;
 
                                 let itemHtml2 = `
-                                <div class="row cart-item">
-                                    <div class="col-sm-4 col-lg-4 cart-img">
-                                        <img src="${imagePath}" alt="${cartItem.productName}" class="img-fluid">
-                                        <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <div class="row cart-item">
+                                        <div class="col-sm-4 col-lg-4 cart-img">
+                                            <img src="${imagePath}" alt="${cartItem.productName}" class="img-fluid">
+                                            <a href="#" class="deleteCartItem" data-product-name="${cartItem.productName}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="col-sm-8 col-lg-8">
+                                            <h3>${cartItem.productName}</h3>
+                                            <span>${formattedAmount}KRW</span> <!-- 금액에 쉼표 추가된 부분 -->
+                                        </div>
                                     </div>
-                                    <div class="col-sm-8 col-lg-8">
-                                        <h3>${cartItem.productName}</h3>
-                                        <span>$${cartItem.amount}</span>
-                                    </div>
-                                </div>
                                 `;
 
                                 cartItemsContainer.append(itemHtml);
                                 cartItemsContainer2.append(itemHtml2);
                             });
 
-                            $('#cartItemsContainer, #cartItemsContainer2').on('click', '.deleteCartItem', function(e)  {
+                            // 기존 리스너 제거 후 다시 등록
+                            $('#cartItemsContainer, #cartItemsContainer2').off('click', '.deleteCartItem').on('click', '.deleteCartItem', function(e) {
                                 e.preventDefault();
                                 let productName = $(this).data('product-name');
                                 console.log("Deleting item: ", productName);
@@ -468,7 +665,7 @@
                                     success: function(deleteResponse) {
                                         console.log("Delete Response: ", deleteResponse);
                                         if (deleteResponse.status === "success") {
-                                            loadCartItems();
+                                            loadCartItems();  // 삭제 후 장바구니 다시 로드
                                         } else {
                                             alert(deleteResponse.message);
                                         }
@@ -478,6 +675,7 @@
                                     }
                                 });
                             });
+
                         },
                         error: function() {
                             alert("Failed to get shopping cart items.");
@@ -601,48 +799,69 @@
         loadCartItems();
     });
 
-    $('#download').click(function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: '/check-authentication',
-            method: 'GET',
-            success:function(response){
-                if(response.authenticated){
-                    let username = response.username;
-                    console.log("Applying license for user: ", username);
-
-                    $.ajax({
-                        url: '/apply-license',
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            memberId: username
-                        }),
-                        beforeSend: function(xhr) {
-                            xhr.setRequestHeader(csrfHeader, csrfToken);
-                        },
-                        success:function(applyResponse){
-                            console.log("Apply License Response: ", applyResponse);
-                            if(applyResponse.status === "success") {
-                                alert("It has been applied.");
-                            } else {
-                                alert(applyResponse.message);
-                            }
-                        },
-                        error:function(){
-                            alert("License application failed.");
-                        }
-                    });
-                }else{
-                    alert("Please login.");
-                }
+    // Product details data
+    $(document).ready(function () {
+        const productDetails = {
+            'VRlogy Program': {
+                title: 'VRlogy Program',
+                description: 'VRlogy 프로그램은 기존 VR 트래커 없이도 가상현실을 체험할 수 있는 최첨단 VR 소프트웨어입니다. 웹캠 기반의 모션 캡처를 활용하여 원활한 경험을 제공합니다.',
+                price: '1,800KRW',
+                image: '/images/KakaoTalk_Photo_2023-09-07-23-39-23.png'
             },
-            error:function(){
-                alert("Failed to verify login status.");
+            'VRlogy treadmill': {
+                title: 'VRlogy treadmill',
+                description: 'VRlogy 트레드밀은 편안하고 몰입감 있는 VR 경험을 제공하도록 설계되었습니다. 하네스 없이 정밀한 추적을 위한 모션 캡처 소프트웨어를 사용합니다.',
+                price: '1,390,000KRW',
+                image: '/images/KATWALKC2.jpg'
+            },
+            'Oculus Quest 2': {
+                title: 'Oculus Quest 2',
+                description: 'Oculus Quest 2는 차세대 올인원 VR 시스템입니다. 향상된 그래픽, 더 높은 주사율, 인체공학적 디자인을 자랑합니다.',
+                price: '349,000KRW',
+                image: '/images/30612946625.20230130153345.jpg'
+            },
+            'PICO 4': {
+                title: 'PICO 4',
+                description: 'PICO 4는 넓은 시야각과 우수한 성능을 제공하는 강력한 VR 헤드셋으로, 몰입감 넘치는 게임 및 엔터테인먼트 경험에 적합합니다.',
+                price: '799,000KRW',
+                image: '/images/35059704619.20221216134925.jpg'
+            },
+            'C920 PRO': {
+                title: 'C920 PRO Webcam',
+                description: 'C920 PRO 웹캠은 뛰어난 화질과 저조도에서의 성능을 자랑하는 고품질 웹캠입니다. 스트리밍과 화상회의에 적합합니다.',
+                price: '139,000KRW',
+                image: '/images/16646684053.20181217180044.jpg'
             }
+        };
+
+        // Event listener for the View Details button
+        $('.viewDetailsButton').click(function (e) {
+            e.preventDefault();
+            const productName = $(this).data('product-name');
+
+            // Retrieve product details
+            const product = productDetails[productName];
+
+            // Populate modal with product details and style title, description, and price in gray with title bold
+            $('#productDetailTitle').text(product.title);
+            $('#productDetailContent').html(`
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="${product.image}" alt="${product.title}" class="img-fluid">
+                </div>
+                <div class="col-lg-6">
+                    <h4 style="color: gray; font-weight: bold;">${product.title}</h4>
+                    <br>
+                    <p style="color: gray;">${product.description}</p>
+                    <br>
+                    <h5 style="color: gray;">Price: ${product.price}</h5>
+                </div>
+            </div>
+        `);
         });
     });
 
+    // Payment related logic
     $(document).ready(function() {
         $('.checkout-button').on('click', function() {
             iamport();
@@ -691,7 +910,7 @@
                     pay_method: 'card',
                     merchant_uid: 'merchant_' + new Date().getTime(),
                     name: allProductNames,
-                    amount: parseInt($('#total-value').text().substring(1)),
+                    amount: parseInt($('#total-value').text().replace(/[^0-9]/g, '')),  // 금액을 숫자로 변환하여 전달
                     buyer_email: userInfo.email,
                     buyer_name: userInfo.name,
                     buyer_tel: userInfo.phoneNumber,
@@ -714,6 +933,7 @@
                         alert(msg);
                     }
                 });
+
             },
             error: function(error) {
                 console.error(error);
@@ -760,7 +980,7 @@
                     memberId: email
                 }),
                 beforeSend: function(xhr) {
-                    xhr.setRequestHeader(csrfHeader, csrfToken); // CSRF 헤더 설정
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
                 },
                 success:function(applyResponse){
                     if(applyResponse.status === "success") {
